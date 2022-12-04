@@ -9,4 +9,5 @@ import scrapy
 class BingoItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    peroid = scrapy.Field()
+    num20 = scrapy.Field()
