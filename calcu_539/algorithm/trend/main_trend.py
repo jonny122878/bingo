@@ -35,6 +35,7 @@ if __name__ == '__main__':
     # 23.6%、38.2%、61.8%和 78.6%的比率被称为斐波那契比率。
 
     # region research DataFrame order
+
     # Load the table into a DataFrame
     data = {
         'order': [1, 2, 3, 4, 5, 6, 7, 8],
@@ -52,17 +53,18 @@ if __name__ == '__main__':
 
     # Calculate the ranges
     ranges = []
-    for high_idx, low_idx in zip(high_indices, low_indices):
-        start = df.loc[high_idx, 'order']
-        end = df.loc[low_idx, 'order']
-        week = WeekInfo()
-        week.start = start
-        week.end = end
-        is_start_exist = any(r.start <= start and r.end >=
-                             start for r in ranges)
-        is_end_exist = any(r.start <= end and r.end >= end for r in ranges)
-        if not (is_start_exist or is_end_exist):
-            ranges.append(week)
+    for high_idx in high_indices:
+        for low_idx in low_indices:
+            start = df.loc[high_idx, 'order']
+            end = df.loc[low_idx, 'order']
+            week = WeekInfo()
+            week.start = start
+            week.end = end
+            is_start_exist = any(r.start <= start and r.end >=
+                                 start for r in ranges)
+            is_end_exist = any(r.start <= end and r.end >= end for r in ranges)
+            if not (is_start_exist or is_end_exist):
+                ranges.append(week)
 
     print(ranges)
     # endregion
