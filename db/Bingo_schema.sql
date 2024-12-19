@@ -1,0 +1,23 @@
+USE [p89880749_test]
+GO
+
+/****** Object:  Table [p89880749_p89880749].[Bingo]    Script Date: 2024/12/13 下午 04:34:17 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [p89880749_p89880749].[Bingo](
+	[drawTerm] [int] NOT NULL,
+	[dDate] [date] NULL,
+	[bigShowOrder] [nvarchar](255) NULL,
+	[createDate] [datetime] NULL,
+ CONSTRAINT [PK_Bingo] PRIMARY KEY CLUSTERED
+(
+	[drawTerm] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
