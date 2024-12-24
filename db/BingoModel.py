@@ -14,6 +14,7 @@ class BingoModel:
         self.createDate = createDate
         """衍生"""
         self.bigShowOrders: List[int] = []
+        self.strBigShowOrders: List[int] = []
         self.bigQty: int = 0
         self.smallQty: int = 0
         self.isBig: bool = False

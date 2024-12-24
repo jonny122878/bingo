@@ -19,6 +19,11 @@ class MapBingoModel:
             map(int, bingo_model.bigShowOrder.split(',')))
         return bingo_model
 
+    def set_big_show_orders_str(self, bingo_model: BingoModel) -> BingoModel:
+        bingo_model.strBigShowOrders = list(
+            map(lambda x: str(x).zfill(2), bingo_model.bigShowOrder.split(',')))
+        return bingo_model
+
     def set_big_samll_qty(self, bingo_model: BingoModel) -> BingoModel:
         bingo_model.bigQty = sum(
             1 for order in bingo_model.bigShowOrders if 41 <= order <= 80)

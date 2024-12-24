@@ -46,6 +46,57 @@ class IConvertMark(ABC):
         pass
 
 
+class BeginBingoConvertMark(IConvertMark):
+    """用原始球號不分組"""
+
+    def loadStds(self) -> list[str]:
+        deferBallInfos = [
+            BallGroup('01', 0), BallGroup('02', 0), BallGroup(
+                '03', 0), BallGroup('04', 0), BallGroup('05', 0),
+            BallGroup('06', 0), BallGroup('07', 0), BallGroup(
+                '08', 0), BallGroup('09', 0), BallGroup('10', 0),
+            BallGroup('11', 0), BallGroup('12', 0), BallGroup(
+                '13', 0), BallGroup('14', 0), BallGroup('15', 0),
+            BallGroup('16', 0), BallGroup('17', 0), BallGroup(
+                '18', 0), BallGroup('19', 0), BallGroup('20', 0),
+            BallGroup('21', 0), BallGroup('22', 0), BallGroup(
+                '23', 0), BallGroup('24', 0), BallGroup('25', 0),
+            BallGroup('26', 0), BallGroup('27', 0), BallGroup(
+                '28', 0), BallGroup('29', 0), BallGroup('30', 0),
+            BallGroup('31', 0), BallGroup('32', 0), BallGroup(
+                '33', 0), BallGroup('34', 0), BallGroup('35', 0),
+            BallGroup('36', 0), BallGroup('37', 0), BallGroup(
+                '38', 0), BallGroup('39', 0), BallGroup('40', 0),
+            BallGroup('41', 0), BallGroup('42', 0), BallGroup(
+                '43', 0), BallGroup('44', 0), BallGroup('45', 0),
+            BallGroup('46', 0), BallGroup('47', 0), BallGroup(
+                '48', 0), BallGroup('49', 0), BallGroup('50', 0),
+            BallGroup('51', 0), BallGroup('52', 0), BallGroup(
+                '53', 0), BallGroup('54', 0), BallGroup('55', 0),
+            BallGroup('56', 0), BallGroup('57', 0), BallGroup(
+                '58', 0), BallGroup('59', 0), BallGroup('60', 0),
+            BallGroup('61', 0), BallGroup('62', 0), BallGroup(
+                '63', 0), BallGroup('64', 0), BallGroup('65', 0),
+            BallGroup('66', 0), BallGroup('67', 0), BallGroup(
+                '68', 0), BallGroup('69', 0), BallGroup('70', 0),
+            BallGroup('71', 0), BallGroup('72', 0), BallGroup(
+                '73', 0), BallGroup('74', 0), BallGroup('75', 0),
+            BallGroup('76', 0), BallGroup('77', 0), BallGroup(
+                '78', 0), BallGroup('79', 0), BallGroup('80', 0)
+        ]
+        return deferBallInfos
+
+    def ballToMark(self, ball: str) -> str:
+        return ball
+        pass
+
+    def markToBalls(self, mark: str) -> list[str]:
+        return [mark]
+        pass
+
+    pass
+
+
 class BeginConvertMark(IConvertMark):
     """用原始球號不分組"""
 
