@@ -101,7 +101,7 @@ if __name__ == '__main__':
             results.append(result)
 
     # 將結果輸出成 JSON
-    with open('correlation_results.json', 'w') as json_file:
+    with open(f'{ps_path}/correlation_results.json', 'w') as json_file:
         json.dump(results, json_file, indent=4)
 
     # 過濾 p_value <= 0.05 的項目
@@ -113,7 +113,7 @@ if __name__ == '__main__':
         filtered_results, key=lambda x: x['correlation_coefficient'], reverse=True)
 
     # 將結果輸出到 JSON 文件
-    output_file_path = 'filtered_sorted_results.json'
+    output_file_path = f'{ps_path}/filtered_sorted_results.json'
     with open(output_file_path, 'w') as json_file:
         json.dump(sorted_results, json_file, indent=4)
 
