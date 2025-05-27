@@ -1,0 +1,139 @@
+2025-04-23 21:48:40 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-04-23 21:48:40 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.1, Platform Windows-10-10.0.26100-SP0
+2025-04-23 21:48:40 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-04-23 21:48:40 [scrapy.extensions.telnet] INFO: Telnet Password: 428a1568fa5ee887
+2025-04-23 21:48:40 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-04-23 21:48:40 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider_20250423214840.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-04-23 21:48:40 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-04-23 21:48:40 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-04-23 21:48:41 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-04-23 21:48:41 [scrapy.core.engine] INFO: Spider opened
+2025-04-23 21:48:41 [root] INFO: Opening spider and establishing database connection.
+2025-04-23 21:48:45 [scrapy.core.engine] INFO: Closing spider (shutdown)
+2025-04-23 21:48:45 [root] INFO: Closing spider and database connection.
+2025-04-23 21:48:45 [scrapy.core.engine] ERROR: Scraper close failure
+Traceback (most recent call last):
+  File "src\\pymssql\\_pymssql.pyx", line 650, in pymssql._pymssql.connect
+  File "src\\pymssql\\_mssql.pyx", line 2158, in pymssql._mssql.connect
+  File "src\\pymssql\\_mssql.pyx", line 712, in pymssql._mssql.MSSQLConnection.__init__
+  File "src\\pymssql\\_mssql.pyx", line 1884, in pymssql._mssql.maybe_raise_MSSQLDatabaseException
+  File "src\\pymssql\\_mssql.pyx", line 1901, in pymssql._mssql.raise_MSSQLDatabaseException
+pymssql._mssql.MSSQLDatabaseException: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\n')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "scrapy\crawler.py", line 154, in crawl
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\engine.py", line 395, in open_spider
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\scraper.py", line 112, in open_spider
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 47, in open_spider
+    self.conn = pymssql.connect(server=server, user=user, password=password, database=database, port=port)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src\\pymssql\\_pymssql.pyx", line 659, in pymssql._pymssql.connect
+pymssql.exceptions.OperationalError: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\n')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 73, in close_spider
+    self.conn.close()
+    ^^^^^^^^^
+AttributeError: 'DbPipeline' object has no attribute 'conn'
+2025-04-23 21:48:45 [scrapy.utils.signal] ERROR: Error caught on signal handler: <bound method CoreStats.spider_closed of <scrapy.extensions.corestats.CoreStats object at 0x000001E234B80890>>
+Traceback (most recent call last):
+  File "src\\pymssql\\_pymssql.pyx", line 650, in pymssql._pymssql.connect
+  File "src\\pymssql\\_mssql.pyx", line 2158, in pymssql._mssql.connect
+  File "src\\pymssql\\_mssql.pyx", line 712, in pymssql._mssql.MSSQLConnection.__init__
+  File "src\\pymssql\\_mssql.pyx", line 1884, in pymssql._mssql.maybe_raise_MSSQLDatabaseException
+  File "src\\pymssql\\_mssql.pyx", line 1901, in pymssql._mssql.raise_MSSQLDatabaseException
+pymssql._mssql.MSSQLDatabaseException: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\n')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "scrapy\crawler.py", line 154, in crawl
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\engine.py", line 395, in open_spider
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\scraper.py", line 112, in open_spider
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 47, in open_spider
+    self.conn = pymssql.connect(server=server, user=user, password=password, database=database, port=port)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src\\pymssql\\_pymssql.pyx", line 659, in pymssql._pymssql.connect
+pymssql.exceptions.OperationalError: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\n')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "scrapy\utils\defer.py", line 400, in maybeDeferred_coro
+  File "pydispatch\robustapply.py", line 55, in robustApply
+  File "scrapy\extensions\corestats.py", line 41, in spider_closed
+AssertionError
+2025-04-23 21:48:45 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'items_per_minute': None,
+ 'log_count/ERROR': 2,
+ 'log_count/INFO': 10,
+ 'responses_per_minute': None}
+2025-04-23 21:48:45 [scrapy.core.engine] INFO: Spider closed (shutdown)
+2025-04-23 21:48:45 [twisted] CRITICAL: Unhandled error in Deferred:
+2025-04-23 21:48:45 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "src\\pymssql\\_pymssql.pyx", line 650, in pymssql._pymssql.connect
+  File "src\\pymssql\\_mssql.pyx", line 2158, in pymssql._mssql.connect
+  File "src\\pymssql\\_mssql.pyx", line 712, in pymssql._mssql.MSSQLConnection.__init__
+  File "src\\pymssql\\_mssql.pyx", line 1884, in pymssql._mssql.maybe_raise_MSSQLDatabaseException
+  File "src\\pymssql\\_mssql.pyx", line 1901, in pymssql._mssql.raise_MSSQLDatabaseException
+pymssql._mssql.MSSQLDatabaseException: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\n')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "twisted\internet\defer.py", line 2017, in _inlineCallbacks
+  File "scrapy\crawler.py", line 154, in crawl
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\engine.py", line 395, in open_spider
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\scraper.py", line 112, in open_spider
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 47, in open_spider
+    self.conn = pymssql.connect(server=server, user=user, password=password, database=database, port=port)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "src\\pymssql\\_pymssql.pyx", line 659, in pymssql._pymssql.connect
+pymssql.exceptions.OperationalError: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\nDB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (localhost)\nNet-Lib error during Unknown error (10061)\n')

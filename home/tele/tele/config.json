@@ -1,0 +1,10 @@
+{
+    "TOKEN": "7282500715:AAFwAdnin6XuvvHp93PExy4uN0Z5r80W3V8",
+    "LOG_PATH": [
+        "C://Programs//bingo//kt_interface//bingo_scrapy//bingo_scrapy//bingo_spider.log"
+    ],
+    "SUBSCRIBERS_FILE": "subscribers.json",
+    "mode": 0,
+    "isSuccessClose": 1,
+    "_comment": "mode: 0 表示详细模式, 1 表示汇总模式; isSuccessClose: 1 表示成功后关闭, 0 表示不发送成功消息"
+}

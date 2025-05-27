@@ -1,0 +1,2 @@
+2025-01-11 00:59:52 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-01-11 00:59:52 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.12.9, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.11.0, Python 3.9.21 (main, Dec 24 2024, 22:20:51) - [GCC 12.2.0], pyOpenSSL 24.3.0 (OpenSSL 3.4.0 22 Oct 2024), cryptography 44.0.0, Platform Linux-5.10.16.3-microsoft-standard-WSL2-x86_64-with-glibc2.36

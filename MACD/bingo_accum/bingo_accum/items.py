@@ -1,0 +1,100 @@
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+class BingoAccumItem(scrapy.Item):
+    # define the fields for your item here like:
+    DrawTerm = scrapy.Field()
+    Ball01 = scrapy.Field()
+    Ball02 = scrapy.Field()
+    Ball03 = scrapy.Field()
+    Ball04 = scrapy.Field()
+    Ball05 = scrapy.Field()
+    Ball06 = scrapy.Field()
+    Ball07 = scrapy.Field()
+    Ball08 = scrapy.Field()
+    Ball09 = scrapy.Field()
+
+    Ball10 = scrapy.Field()
+    Ball11 = scrapy.Field()
+    Ball12 = scrapy.Field()
+    Ball13 = scrapy.Field()
+    Ball14 = scrapy.Field()
+    Ball15 = scrapy.Field()
+    Ball16 = scrapy.Field()
+    Ball17 = scrapy.Field()
+    Ball18 = scrapy.Field()
+    Ball19 = scrapy.Field()
+
+    Ball20 = scrapy.Field()
+    Ball21 = scrapy.Field()
+    Ball22 = scrapy.Field()
+    Ball23 = scrapy.Field()
+    Ball24 = scrapy.Field()
+    Ball25 = scrapy.Field()
+    Ball26 = scrapy.Field()
+    Ball27 = scrapy.Field()
+    Ball28 = scrapy.Field()
+    Ball29 = scrapy.Field()
+
+    Ball30 = scrapy.Field()
+    Ball31 = scrapy.Field()
+    Ball32 = scrapy.Field()
+    Ball33 = scrapy.Field()
+    Ball34 = scrapy.Field()
+    Ball35 = scrapy.Field()
+    Ball36 = scrapy.Field()
+    Ball37 = scrapy.Field()
+    Ball38 = scrapy.Field()
+    Ball39 = scrapy.Field()
+
+    Ball40 = scrapy.Field()
+    Ball41 = scrapy.Field()
+    Ball42 = scrapy.Field()
+    Ball43 = scrapy.Field()
+    Ball44 = scrapy.Field()
+    Ball45 = scrapy.Field()
+    Ball46 = scrapy.Field()
+    Ball47 = scrapy.Field()
+    Ball48 = scrapy.Field()
+    Ball49 = scrapy.Field()
+
+    Ball50 = scrapy.Field()
+    Ball51 = scrapy.Field()
+    Ball52 = scrapy.Field()
+    Ball53 = scrapy.Field()
+    Ball54 = scrapy.Field()
+    Ball55 = scrapy.Field()
+    Ball56 = scrapy.Field()
+    Ball57 = scrapy.Field()
+    Ball58 = scrapy.Field()
+    Ball59 = scrapy.Field()
+
+    Ball60 = scrapy.Field()
+    Ball61 = scrapy.Field()
+    Ball62 = scrapy.Field()
+    Ball63 = scrapy.Field()
+    Ball64 = scrapy.Field()
+    Ball65 = scrapy.Field()
+    Ball66 = scrapy.Field()
+    Ball67 = scrapy.Field()
+    Ball68 = scrapy.Field()
+    Ball69 = scrapy.Field()
+
+    Ball70 = scrapy.Field()
+    Ball71 = scrapy.Field()
+    Ball72 = scrapy.Field()
+    Ball73 = scrapy.Field()
+    Ball74 = scrapy.Field()
+    Ball75 = scrapy.Field()
+    Ball76 = scrapy.Field()
+    Ball77 = scrapy.Field()
+    Ball78 = scrapy.Field()
+    Ball79 = scrapy.Field()
+
+    Ball80 = scrapy.Field()
+    pass

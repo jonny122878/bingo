@@ -1,0 +1,10 @@
+{
+    "logs": [
+    "./log1.log",
+    "./log2.log",
+    "./log3.log",
+    "./log4.log",
+    "./log5.log"
+    ]
+  }
+  
