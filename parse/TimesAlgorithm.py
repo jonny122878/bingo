@@ -50,13 +50,11 @@ class TimesAlgorithm:
         # 2. 生成 dictBall: dict，key "01"~"80"，value 0
         dictBall = {f"{i:02d}": 0 for i in range(1, 81)}
 
-        # 修改：遍歷 inputs，更新 dictBall 並將其值附加到 ball2Ds
+        # 修改：遍歷 inputs，若 key in balls 則累加 1
         for row in inputs:
             balls = set(list(row))
             for key in dictBall.keys():
                 if key in balls:
-                    dictBall[key] = 0
-                else:
                     dictBall[key] += 1
             ball2Ds.append(list(dictBall.values()))
 

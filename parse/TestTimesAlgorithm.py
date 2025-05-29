@@ -17,8 +17,8 @@ class TestTimesAlgorithm(unittest.TestCase):
         algo.LoadData(inputs)
         # 1. declare DataFrame dfExcepted
         dfExcepted = pd.DataFrame({
-            "79": [1, 2, 3],
-            "80": [0, 1, 0]
+            "79": [0, 0, 0],
+            "80": [1, 1, 2]
         })
         print(algo.DfExport)
         print(dfExcepted)
