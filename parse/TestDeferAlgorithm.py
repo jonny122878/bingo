@@ -1,5 +1,6 @@
 import unittest
 from DeferAlgorithm import DeferAlgorithm
+import pandas as pd
 
 class TestDeferAlgorithm(unittest.TestCase):
     def Test_LoadData(self):
@@ -13,7 +14,15 @@ class TestDeferAlgorithm(unittest.TestCase):
             ["03","11","12","13","17","22","24","31","34","40","45","48","55","59","61","68","71","72","78","80"]
         ]
         algo.LoadData(inputs)
-        # No assertion needed as method is pass
+        # 1. declare DataFrame dfExcepted
+        dfExcepted = pd.DataFrame({
+            "79": [1, 2, 3],
+            "80": [0, 1, 0]
+        })
+        print(algo.DfExport)
+        print(dfExcepted)
+        # 2. 驗證 algo.DfExport 和 dfExcepted 是否相等
+        pd.testing.assert_frame_equal(algo.DfExport.reset_index(drop=True), dfExcepted.reset_index(drop=True))
 
 if __name__ == '__main__':
     try:
