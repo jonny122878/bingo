@@ -9,6 +9,7 @@ class DeferAlgorithm:
         self._TakeColumns: List[str] = []
         self._DfResult: DataFrame = None
         self._DfExport: DataFrame = None
+        self._IsToExcel: bool = False  # 新增
 
     @property
     def TakeColumns(self):
@@ -33,6 +34,14 @@ class DeferAlgorithm:
     @DfExport.setter
     def DfExport(self, value):
         self._DfExport = value
+
+    @property
+    def IsToExcel(self):
+        return self._IsToExcel
+
+    @IsToExcel.setter
+    def IsToExcel(self, value: bool):
+        self._IsToExcel = value
 
     def LoadData(self, inputs: List[str]) -> None:
         # 1. 生成 ball2Ds: List[List[str]]
@@ -67,7 +76,8 @@ class DeferAlgorithm:
             self._DfExport.drop(columns=excludeColumns, inplace=True)
 
         # 輸出到 Excel，self._DfExport 為第 1 個 sheet，self._DfResult 為第 2 個 sheet
-        with pd.ExcelWriter(r"C:\Programs\test_data\DeferAlgorithm.xlsx") as writer:
-            self._DfExport.to_excel(writer, sheet_name="Export", index=False)
-            self._DfResult.to_excel(writer, sheet_name="Result", index=False)
+        if self._IsToExcel:
+            with pd.ExcelWriter(r"C:\Programs\test_data\DeferAlgorithm.xlsx") as writer:
+                self._DfExport.to_excel(writer, sheet_name="Export", index=False)
+                self._DfResult.to_excel(writer, sheet_name="Result", index=False)
 

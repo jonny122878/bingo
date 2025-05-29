@@ -5,6 +5,7 @@ import pandas as pd
 class TestDeferAlgorithm(unittest.TestCase):
     def Test_LoadData(self):
         algo = DeferAlgorithm()
+        algo.IsToExcel = True  # 不輸出到 Excel
         takeColumns = ["79", "80"]
         algo.TakeColumns = takeColumns
         # 新增測試資料
