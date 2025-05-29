@@ -4,6 +4,8 @@ from DeferAlgorithm import DeferAlgorithm
 class TestDeferAlgorithm(unittest.TestCase):
     def Test_LoadData(self):
         algo = DeferAlgorithm()
+        takeColumns = ["79", "80"]
+        algo.TakeColumns = takeColumns
         # 新增測試資料
         inputs = [
             ["04","09","11","28","35","41","42","43","44","45","46","49","50","52","57","63","66","68","74","80"],
@@ -13,5 +15,11 @@ class TestDeferAlgorithm(unittest.TestCase):
         algo.LoadData(inputs)
         # No assertion needed as method is pass
 
-if __name__ == "__main__":
-    unittest.main()
+if __name__ == '__main__':
+    try:
+        suite = unittest.TestSuite()
+        suite.addTest(TestDeferAlgorithm('Test_LoadData'))
+        runner = unittest.TextTestRunner(verbosity=2)
+        runner.run(suite)
+    except SystemExit:
+        pass

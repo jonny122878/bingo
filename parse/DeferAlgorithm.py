@@ -1,5 +1,6 @@
 from typing import List
 from pandas import DataFrame
+import pandas as pd
 
 class DeferAlgorithm:
     """計算拖期"""
@@ -40,17 +41,33 @@ class DeferAlgorithm:
         # 2. 生成 dictBall: dict，key "01"~"80"，value 0
         dictBall = {f"{i:02d}": 0 for i in range(1, 81)}
 
-        # 新增：遍歷 inputs，更新 dictBall 並將其值附加到 ball2Ds
+        # 修改：遍歷 inputs，更新 dictBall 並將其值附加到 ball2Ds
         for row in inputs:
             balls = set(list(row))
             for key in dictBall.keys():
                 if key in balls:
-                    dictBall[key] += 1
-                else:
                     dictBall[key] = 0
+                else:
+                    dictBall[key] += 1
             ball2Ds.append(list(dictBall.values()))
 
         # 3. 實體化 self._DfResult，data=ball2Ds，columns=dictBall 的 keys
         self._DfResult = DataFrame(data=ball2Ds, columns=list(dictBall.keys()))
-        # 輸出到 Excel
-        self._DfResult.to_excel(r"C:\Programs\test_data\DeferAlgorithm.xlsx", index=False)
+        # --- 新增邏輯 ---
+        # 將 self._DfExport 複製自 self._DfResult
+        self._DfExport = self._DfResult.copy()
+
+        # 若 self._TakeColumns 非空，則刪除 self._DfExport 中名稱存在於 self._TakeColumns 的欄位
+        if self._TakeColumns:
+            # 1. 宣告 excludeColumns = 01~80
+            excludeColumns = [f"{i:02d}" for i in range(1, 81)]
+            # 2. foreach excludeColumns 若不存在 self._TakeColumns 則保留
+            excludeColumns = [col for col in excludeColumns if col not in self._TakeColumns]
+            # 3. self._DfExport drop method call excludeColumns
+            self._DfExport.drop(columns=excludeColumns, inplace=True)
+
+        # 輸出到 Excel，self._DfExport 為第 1 個 sheet，self._DfResult 為第 2 個 sheet
+        with pd.ExcelWriter(r"C:\Programs\test_data\DeferAlgorithm.xlsx") as writer:
+            self._DfExport.to_excel(writer, sheet_name="Export", index=False)
+            self._DfResult.to_excel(writer, sheet_name="Result", index=False)
+
