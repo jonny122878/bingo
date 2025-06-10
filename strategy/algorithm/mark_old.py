@@ -2,51 +2,11 @@ from abc import ABC, abstractmethod
 import unittest
 from unittest.mock import Mock
 import itertools
+from parse.ball_mark.BallGroup import BallGroup
+from parse.ball_mark.IBallMark import IBallMark
 
 
-class BallGroup:
-    """
-    球號分組資訊
-    times單位可為拖期或次數
-    """
-
-    def __init__(self, sort: str, times: int):
-        self._sort = sort
-        self._times = times
-
-    @property
-    def sort(self) -> str:
-        return self._sort
-
-    @sort.setter
-    def sort(self, value: str):
-        self._sort = value
-
-    @property
-    def times(self) -> int:
-        return self._times
-
-    @times.setter
-    def times(self, value: int):
-        self._times = value
-
-
-class IConvertMark(ABC):
-
-    @abstractmethod
-    def loadStds(self) -> list[str]:
-        pass
-
-    @abstractmethod
-    def ballToMark(self, ball: str) -> str:
-        pass
-
-    @abstractmethod
-    def markToBalls(self, mark: str) -> list[str]:
-        pass
-
-
-class BeginBingoConvertMark(IConvertMark):
+class BeginBingoConvertMark(IBallMark):
     """用原始球號不分組"""
 
     def loadStds(self) -> list[str]:
@@ -97,7 +57,7 @@ class BeginBingoConvertMark(IConvertMark):
     pass
 
 
-class BeginConvertMark(IConvertMark):
+class BeginConvertMark(IBallMark):
     """用原始球號不分組"""
 
     def loadStds(self) -> list[str]:

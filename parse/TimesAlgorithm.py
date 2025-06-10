@@ -3,7 +3,7 @@ from pandas import DataFrame
 import pandas as pd
 
 class TimesAlgorithm:
-    """計算拖期"""
+    """計算次數"""
 
     def __init__(self) -> None:
         self._TakeColumns: List[str] = []
