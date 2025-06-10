@@ -5,7 +5,7 @@ import pandas as pd
 class TestTimesAlgorithm(unittest.TestCase):
     def Test_LoadData(self):
         algo = TimesAlgorithm()
-        algo.IsToExcel = True  # 不輸出到 Excel
+        algo.ExcelPath = r"C:\Programs\test_data\TimesAlgorithm.xlsx"  # 設定 ExcelPath
         takeColumns = ["79", "80"]
         algo.TakeColumns = takeColumns
         # 新增測試資料

@@ -9,7 +9,7 @@ class TimesAlgorithm:
         self._TakeColumns: List[str] = []
         self._DfResult: DataFrame = None
         self._DfExport: DataFrame = None
-        self._IsToExcel: bool = True  # 新增
+        self._ExcelPath: str = None  # 新增
 
     @property
     def TakeColumns(self):
@@ -36,12 +36,12 @@ class TimesAlgorithm:
         self._DfExport = value
 
     @property
-    def IsToExcel(self):
-        return self._IsToExcel
+    def ExcelPath(self):  # 新增
+        return self._ExcelPath
 
-    @IsToExcel.setter
-    def IsToExcel(self, value: bool):
-        self._IsToExcel = value
+    @ExcelPath.setter
+    def ExcelPath(self, value: str):  # 新增
+        self._ExcelPath = value
 
     def LoadData(self, inputs: List[str]) -> None:
         # 1. 生成 ball2Ds: List[List[str]]
@@ -74,7 +74,7 @@ class TimesAlgorithm:
             self._DfExport.drop(columns=excludeColumns, inplace=True)
 
         # 輸出到 Excel，self._DfExport 為第 1 個 sheet，self._DfResult 為第 2 個 sheet
-        if self._IsToExcel:
-            with pd.ExcelWriter(r"C:\Programs\test_data\TimesAlgorithm.xlsx") as writer:
+        if self._ExcelPath is not None:
+            with pd.ExcelWriter(self._ExcelPath) as writer:
                 self._DfExport.to_excel(writer, sheet_name="Export", index=False)
                 self._DfResult.to_excel(writer, sheet_name="Result", index=False)
