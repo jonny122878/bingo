@@ -15,6 +15,7 @@ USE [p89880749_test]
 --) ON [PRIMARY]
 --GO
 
+
 --DELETE FROM [dbo].[bingo] 
 
 SELECT * FROM [dbo].[bingo] 
