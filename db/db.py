@@ -134,10 +134,9 @@ if __name__ == '__main__':
 
     # 539
 
-    tables = sql.select('SELECT table_name \
-                      FROM information_schema.tables ')
-
-    rows = sql.select('select * from Daily539')
+    rows = sql.select('select * from Bingo ORDER BY drawTerm DESC ')
+    for row in rows:
+        print(row)
 
     print('')
 
