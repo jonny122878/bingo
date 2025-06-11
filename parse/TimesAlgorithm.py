@@ -1,6 +1,7 @@
 from typing import List
 from pandas import DataFrame
 import pandas as pd
+from ball_mark.IBallMark import IBallMark  # 修改為相對匯入
 
 class TimesAlgorithm:
     """計算次數"""
@@ -10,6 +11,7 @@ class TimesAlgorithm:
         self._DfResult: DataFrame = None
         self._DfExport: DataFrame = None
         self._ExcelPath: str = None  # 新增
+        self._BallMark: IBallMark = None  # 新增
 
     @property
     def TakeColumns(self):
@@ -42,6 +44,14 @@ class TimesAlgorithm:
     @ExcelPath.setter
     def ExcelPath(self, value: str):  # 新增
         self._ExcelPath = value
+
+    @property
+    def BallMark(self):  # 新增
+        return self._BallMark
+
+    @BallMark.setter
+    def BallMark(self, value: IBallMark):  # 新增
+        self._BallMark = value
 
     def LoadData(self, inputs: List[str]) -> None:
         # 1. 生成 ball2Ds: List[List[str]]

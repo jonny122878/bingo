@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 class IBallMark(ABC):
 
     @abstractmethod
-    def loadStds(self) -> list[str]:
+    def loadStds(self) -> dict[str, int]:
         pass
 
     @abstractmethod
