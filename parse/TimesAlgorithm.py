@@ -1,7 +1,7 @@
 from typing import List
 from pandas import DataFrame
 import pandas as pd
-from ball_mark.IBallMark import IBallMark  # 修改為相對匯入
+from .ball_mark.IBallMark import IBallMark  # 修改為相對匯入
 
 class TimesAlgorithm:
     """計算次數"""

@@ -1,5 +1,5 @@
 import unittest
-from StraightBallMark import StraightBallMark
+from parse.ball_mark.StraightBallMark import StraightBallMark
 
 class TestStraightBallMark(unittest.TestCase):
 

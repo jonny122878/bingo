@@ -11,7 +11,7 @@ class TestCalcuTimesStraightAndHorizontal(unittest.TestCase):
         algo_straight = TimesAlgorithm()
         algo_straight.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByStraight.xlsx"
         algo_straight.BallMark = StraightBallMark()
-        algo_straight.TakeColumns = ["01S", "07S"]
+        algo_straight.TakeColumns = ["01S", "02S", "03S", "04S", "05S", "06S", "07S", "08S", "09S", "10S"]
         inputs = [
             ["04","09","11","28","35","41","42","43","44","45","46","49","50","52","57","63","66","68","74","80"],
             ["08","14","23","24","25","30","31","32","41","43","44","50","53","57","62","63","64","68","69","72"],
@@ -24,12 +24,12 @@ class TestCalcuTimesStraightAndHorizontal(unittest.TestCase):
         algo_horizontal = TimesAlgorithm()
         algo_horizontal.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByHorizontal.xlsx"
         algo_horizontal.BallMark = HorizontalBallMark()
-        algo_horizontal.TakeColumns = ["41H", "71H"]
+        algo_horizontal.TakeColumns = ["01H", "11H", "21H", "31H", "41H", "51H", "61H", "71H"]
         algo_horizontal.LoadData(inputs)
         dfHorizontal = algo_horizontal.DfExport
 
         calcu = CalcuTimesStraightAndHorizontal()
-        calcu.Calcu(dfStraight, dfHorizontal)
+        calcu.Calcu(dfStraight, dfHorizontal, Horizontal=HorizontalBallMark(), Straight=StraightBallMark())
         print(dfStraight)
         print(dfHorizontal)
 
