@@ -1,4 +1,4 @@
-from IBallMark import IBallMark
+from .IBallMark import IBallMark
 
 class StraightBallMark(IBallMark):
     """

@@ -58,13 +58,19 @@ class TimesAlgorithm:
         ball2Ds: List[List[str]] = []
 
         # 2. 生成 dictBall: dict，key "01"~"80"，value 0
-        dictBall = {f"{i:02d}": 0 for i in range(1, 81)}
+        if self._BallMark is None:
+            dictBall = {f"{i:02d}": 0 for i in range(1, 81)}
+        else:
+            dictBall = self._BallMark.loadStds()
 
         # 修改：遍歷 inputs，若 key in balls 則累加 1
         for row in inputs:
-            balls = set(list(row))
-            for key in dictBall.keys():
-                if key in balls:
+            if self._BallMark is None:
+                balls = list(row)  # 移除 set
+            else:
+                balls = [self._BallMark.ballToMark(b) for b in row]  # 移除 set
+            for key in balls:
+                if key in dictBall.keys():
                     dictBall[key] += 1
             ball2Ds.append(list(dictBall.values()))
 
@@ -77,7 +83,10 @@ class TimesAlgorithm:
         # 若 self._TakeColumns 非空，則刪除 self._DfExport 中名稱存在於 self._TakeColumns 的欄位
         if self._TakeColumns:
             # 1. 宣告 excludeColumns = 01~80
-            excludeColumns = [f"{i:02d}" for i in range(1, 81)]
+            if self._BallMark is None:
+                excludeColumns = [f"{i:02d}" for i in range(1, 81)]
+            else:
+                excludeColumns = list(self._BallMark.loadStds().keys())
             # 2. foreach excludeColumns 若不存在 self._TakeColumns 則保留
             excludeColumns = [col for col in excludeColumns if col not in self._TakeColumns]
             # 3. self._DfExport drop method call excludeColumns

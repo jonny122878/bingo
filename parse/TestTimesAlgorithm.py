@@ -1,6 +1,8 @@
 import unittest
 from TimesAlgorithm import TimesAlgorithm
 import pandas as pd
+from ball_mark.HorizontalBallMark import HorizontalBallMark
+from ball_mark.StraightBallMark import StraightBallMark  # 新增
 
 class TestTimesAlgorithm(unittest.TestCase):
     def Test_LoadData(self):
@@ -25,10 +27,58 @@ class TestTimesAlgorithm(unittest.TestCase):
         # 2. 驗證 algo.DfExport 和 dfExcepted 是否相等
         pd.testing.assert_frame_equal(algo.DfExport.reset_index(drop=True), dfExcepted.reset_index(drop=True))
 
+    def Test_LoadDataByHorizontal(self):
+        algo = TimesAlgorithm()
+        algo.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByHorizontal.xlsx"  # 設定 ExcelPath
+        algo.BallMark = HorizontalBallMark()
+        takeColumns = ["41H", "71H"]
+        algo.TakeColumns = takeColumns
+        # 新增測試資料
+        inputs = [
+            ["04","09","11","28","35","41","42","43","44","45","46","49","50","52","57","63","66","68","74","80"],
+            ["08","14","23","24","25","30","31","32","41","43","44","50","53","57","62","63","64","68","69","72"],
+            ["03","11","12","13","17","22","24","31","34","40","45","48","55","59","61","68","71","72","78","80"]
+        ]
+        algo.LoadData(inputs)
+        # 1. declare DataFrame dfExcepted
+        dfExcepted = pd.DataFrame({
+            "41H": [8, 12, 14],
+            "71H": [2, 3, 7]
+        })
+        print(algo.DfExport)
+        print(dfExcepted)
+        # 2. 驗證 algo.DfExport 和 dfExcepted 是否相等
+        pd.testing.assert_frame_equal(algo.DfExport.reset_index(drop=True), dfExcepted.reset_index(drop=True))
+
+    def Test_LoadDataByStraight(self):
+        algo = TimesAlgorithm()
+        algo.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByStraight.xlsx"  # 設定 ExcelPath
+        algo.BallMark = StraightBallMark()
+        takeColumns = ["01S", "07S"]
+        algo.TakeColumns = takeColumns
+        # 新增測試資料
+        inputs = [
+            ["04","09","11","28","35","41","42","43","44","45","46","49","50","52","57","63","66","68","74","80"],
+            ["08","14","23","24","25","30","31","32","41","43","44","50","53","57","62","63","64","68","69","72"],
+            ["03","11","12","13","17","22","24","31","34","40","45","48","55","59","61","68","71","72","78","80"]
+        ]
+        algo.LoadData(inputs)
+        # 1. declare DataFrame dfExcepted
+        dfExcepted = pd.DataFrame({
+            "01S": [2, 4, 8],  # 根據需求自行調整期望值
+            "07S": [1, 2, 3]
+        })
+        print(algo.DfExport)
+        print(dfExcepted)
+        # 2. 驗證 algo.DfExport 和 dfExcepted 是否相等
+        pd.testing.assert_frame_equal(algo.DfExport.reset_index(drop=True), dfExcepted.reset_index(drop=True))
+
 if __name__ == '__main__':
     try:
         suite = unittest.TestSuite()
         suite.addTest(TestTimesAlgorithm('Test_LoadData'))
+        suite.addTest(TestTimesAlgorithm('Test_LoadDataByHorizontal'))
+        suite.addTest(TestTimesAlgorithm('Test_LoadDataByStraight'))  # 新增
         runner = unittest.TextTestRunner(verbosity=2)
         runner.run(suite)
     except SystemExit:
