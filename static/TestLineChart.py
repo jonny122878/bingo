@@ -10,9 +10,10 @@ class TestLineChart(unittest.TestCase):
     def Test_group8_plot(self):
         import os
         import pandas as pd
-        dir_path = r"C:\Programs\test_data\group5"
+        dir_path = r"C:\Programs\test_data\group8"
         excel_files = [f for f in os.listdir(dir_path) if f.endswith('.xlsx') or f.endswith('.xls')]
-        print("Excel files in test_group_8:", excel_files)
+        excel_files.sort()  # 從小到大排序
+        print("Excel files in test_group_3:", excel_files)
         arr = []
         for fname in excel_files:
             fpath = os.path.join(dir_path, fname)

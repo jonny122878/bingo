@@ -109,7 +109,8 @@ class TimesHorizontalStraightFeed:
         fileExten = os.path.splitext(os.path.basename(self.ExcelFile))[1]
         print(fileNameNoExten)
         print(fileExten)
-        variant_fileName = f"{fileNameNoExten}_skip{skip_variant_count}_take{take_variant_count}{fileExten}"
+        skip_str = f"{skip_variant_count:02d}"  # 轉為二位數字串
+        variant_fileName = f"{fileNameNoExten}_{skip_str}_skip_take{take_variant_count}{fileExten}"
         if self.ExcelPath and self.ExcelFile:
             excel_full_path = os.path.join(self.ExcelPath, variant_fileName)
         else:
@@ -133,6 +134,6 @@ if __name__ == '__main__':
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(top_rows,0,13,5)
+    feed_instance.feed(top_rows,0,15,3)
 
     print('')
