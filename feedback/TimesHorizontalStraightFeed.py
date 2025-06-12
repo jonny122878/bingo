@@ -55,6 +55,8 @@ class TimesHorizontalStraightFeed:
         dfHorizontal = algo_horizontal.DfExport
 
         calcu = CalcuTimesStraightAndHorizontal()
+        calcu.SkipVariantCount = 9
+        calcu.TakeVariantCount = 4
         calcu.Calcu(dfStraight, dfHorizontal, Horizontal=HorizontalBallMark(), Straight=StraightBallMark())
         print(dfStraight)
         print(dfHorizontal)
