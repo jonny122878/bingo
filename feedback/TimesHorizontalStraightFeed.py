@@ -22,7 +22,10 @@ class TimesHorizontalStraightFeed:
         for row in top_rows:
             if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
                 row['bigShowOrders'] = row['bigShowOrder'].split(',')
+        # 呼叫 calcu
+        self.calcu(top_rows)
 
+    def calcu(self, top_rows):
         # 轉為 DataFrame 並匯出為 Excel，只包含 drawTerm 和 bigShowOrders
         import pandas as pd
         df = pd.DataFrame(top_rows)
