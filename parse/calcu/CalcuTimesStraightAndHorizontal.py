@@ -11,6 +11,7 @@ class CalcuTimesStraightAndHorizontal:
         # 橫向遍歷，整併 dfSortedVariant foreach 到主 for 迴圈，產生 KeyN, SortedN, BallsN 共 9 欄
         sorted_dict = {}
         variant_dict = {}
+        dfDictUnique_list = []
         for i in range(dfMerged.shape[0]):
             row_np = dfMerged.iloc[i].to_numpy()
             sorted_indices = np.argsort(row_np)
@@ -32,33 +33,25 @@ class CalcuTimesStraightAndHorizontal:
             variant_dict[f'Key{i+1}'] = variant_keys
             variant_dict[f'Sorted{i+1}'] = variant_values
             variant_dict[f'Balls{i+1}'] = variant_balls
+            # 每一列都計算 dictUnique 並存入 list
+            dictUnique = {}
+            for balls in variant_balls:
+                for b in balls:
+                    dictUnique[b] = dictUnique.get(b, 0) + 1
+            dfDictUnique = pd.DataFrame(list(dictUnique.items()), columns=["Ball", "Count"])
+            dfDictUnique = dfDictUnique[dfDictUnique["Count"] > 1]  # 移除 Count == 1
+            dfDictUnique["RowIndex"] = i+1
+            dfDictUnique_list.append(dfDictUnique)
         dfSorted = pd.DataFrame(sorted_dict)
         dfSortedVariant = pd.DataFrame(variant_dict)
-        first_row_temp = dfMerged.iloc[0].to_numpy()
-        # 建立 dictUnique，key 為 Balls 欄位每個元素，value 為出現次數
-        dictUnique = {}
-        for balls in variant_balls:
-            for b in balls:
-                dictUnique[b] = dictUnique.get(b, 0) + 1
-        # 移除 value == 1 的元素
-        dictUnique = {k: v for k, v in dictUnique.items() if v > 1}
-        dfDictUnique = pd.DataFrame(list(dictUnique.items()), columns=["Ball", "Count"])
-        # 將 dfDictUnique 直向轉橫向，只保留 keys 組成 array，且只有一個 column
-        if not dfDictUnique.empty:
-            dfDictUniqueHorizontal = pd.DataFrame({'Balls': [dfDictUnique["Ball"].to_list()]})
+        # 合併所有 rows 的 dfDictUnique
+        if dfDictUnique_list:
+            dfDictUniqueAll = pd.concat(dfDictUnique_list, ignore_index=True)
         else:
-            dfDictUniqueHorizontal = pd.DataFrame()
-        # 輸出到 Excel，只保留4個sheet
+            dfDictUniqueAll = pd.DataFrame()
+        # 輸出到 Excel
         with pd.ExcelWriter(r"C:\Programs\test_data\CalcuTimesStraightAndHorizontal.xlsx") as writer:
             dfMerged.to_excel(writer, sheet_name="Merged", index=False)
-            # 移除 dfStraight 和 dfHorizontal 的輸出
-            # dfStraight.to_excel(writer, sheet_name="StraightB", index=False)
-            # dfHorizontal.to_excel(writer, sheet_name="HorizontalB", index=False)
-            # 新增排序後的第一列到新工作表，左側有標題
             dfSorted.to_excel(writer, sheet_name="SortedFirstRow", index=False)
-            # 新增 variant 結果到第3個sheet
             dfSortedVariant.to_excel(writer, sheet_name="SortedFirstRowVariant", index=False)
-            # 新增 dictUnique 統計到第4個 sheet
-            dfDictUnique.to_excel(writer, sheet_name="ElementCount", index=False)
-            # 新增第5個sheet：dfDictUniqueHorizontal
-            dfDictUniqueHorizontal.to_excel(writer, sheet_name="ElementCountHorizontal", index=False)
+            dfDictUniqueAll.to_excel(writer, sheet_name="ElementCountAllRows", index=False)
