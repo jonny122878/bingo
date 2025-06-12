@@ -11,13 +11,22 @@ class CalcuTimesStraightAndHorizontal:
         # 取得第一列並排序
         first_row_np = dfMerged.iloc[0].to_numpy()
         sorted_first_row = np.sort(first_row_np)
-        # 包裝成 DataFrame 並加上標題
-        dfSorted = pd.DataFrame({
-            'Key': dfMerged.columns,
-            'Sorted': sorted_first_row
-        })
+        # 取得排序後的 key
+        sorted_indices = np.argsort(first_row_np)
+        sorted_keys = dfMerged.columns[sorted_indices]
+        # 橫向遍歷，每一列產生兩個欄位：Row N, SortedN，總共 6 欄
+        sorted_dict = {}
+        for i in range(dfMerged.shape[0]):
+            row_np = dfMerged.iloc[i].to_numpy()
+            sorted_indices = np.argsort(row_np)
+            sorted_keys = dfMerged.columns[sorted_indices]
+            sorted_values = np.sort(row_np)
+            sorted_dict[f'Row {i+1}'] = sorted_keys
+            sorted_dict[f'Sorted{i+1}'] = sorted_values
+        dfSorted = pd.DataFrame(sorted_dict)
+        first_row_temp = dfMerged.iloc[0].to_numpy()
         # variant: 跳過前5個元素後取8個元素
-        variant_values = sorted_first_row[5:13]
+        variant_values = first_row_temp[5:13]
         variant_keys = dfMerged.columns[5:13]
         # 產生 Balls 欄位，優先用 Horizontal.markToBalls，若為空則用 Straight.markToBalls
         variant_balls = []
