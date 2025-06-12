@@ -8,12 +8,6 @@ class CalcuTimesStraightAndHorizontal:
     def Calcu(self, dfStraight: DataFrame, dfHorizontal: DataFrame, Horizontal: IBallMark, Straight: IBallMark) -> None:
         # merge DataFrame
         dfMerged = pd.concat([dfStraight, dfHorizontal], axis=1)
-        # 取得第一列並排序
-        first_row_np = dfMerged.iloc[0].to_numpy()
-        sorted_first_row = np.sort(first_row_np)
-        # 取得排序後的 key
-        sorted_indices = np.argsort(first_row_np)
-        sorted_keys = dfMerged.columns[sorted_indices]
         # 橫向遍歷，每一列產生兩個欄位：Row N, SortedN，總共 6 欄
         sorted_dict = {}
         for i in range(dfMerged.shape[0]):
