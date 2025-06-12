@@ -62,11 +62,31 @@ class TimesHorizontalStraightFeed:
         # 匯出 bigShowOrders 及 calcu.dfDictUniqueGroup 到 Excel 兩個 sheet
         # 新增：merge df 和 calcu.dfDictUniqueGroup
         df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
+        # 新增：只保留 bigShowOrders 和 Balls 欄位
+        df_merged_simple = df_merged[['bigShowOrders', 'Balls']].copy()
+        # 新增 compare 欄位，保留 bigShowOrders 和 Balls 交集
+        def compare_elements(row):
+            if isinstance(row['bigShowOrders'], list) and isinstance(row['Balls'], list):
+                return list(set(row['bigShowOrders']) & set(row['Balls']))
+            return []
+        df_merged_simple['compare'] = df_merged_simple.apply(compare_elements, axis=1)
+        # 新增百分比欄位，分母 Balls 長度，分子 compare 長度
+        def calc_percent(row):
+            if isinstance(row['Balls'], list) and len(row['Balls']) > 0:
+                return round(len(row['compare']) / len(row['Balls']) * 100, 2)
+            return 0.0
+        df_merged_simple['percent'] = df_merged_simple.apply(calc_percent, axis=1)
+
+        # 新增：計算整體 percent 平均
+        percent_avg = df_merged_simple['percent'].mean() if not df_merged_simple.empty else 0.0
+        percent_avg_df = pd.DataFrame({'percent_avg': [percent_avg]})
 
         with pd.ExcelWriter(self.ExcelPath) as writer:
             df.to_excel(writer, sheet_name="TopRows", index=False)
             calcu.dfDictUniqueGroup.to_excel(writer, sheet_name="ElementCountGroupByRow", index=False)
             df_merged.to_excel(writer, sheet_name="TopRowsWithElementCount", index=False)
+            df_merged_simple.to_excel(writer, sheet_name="BigShowOrdersAndBalls", index=False)
+            percent_avg_df.to_excel(writer, sheet_name="PercentAverage", index=False)
 
 if __name__ == '__main__':
     import pandas as pd  # 匯入 pandas
