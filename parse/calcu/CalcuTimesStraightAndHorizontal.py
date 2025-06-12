@@ -39,6 +39,11 @@ class CalcuTimesStraightAndHorizontal:
         # 移除 value == 1 的元素
         dictUnique = {k: v for k, v in dictUnique.items() if v > 1}
         dfDictUnique = pd.DataFrame(list(dictUnique.items()), columns=["Ball", "Count"])
+        # 將 dfDictUnique 直向轉橫向，只保留 keys 組成 array，且只有一個 column
+        if not dfDictUnique.empty:
+            dfDictUniqueHorizontal = pd.DataFrame({'Balls': [dfDictUnique["Ball"].to_list()]})
+        else:
+            dfDictUniqueHorizontal = pd.DataFrame()
         # 輸出到 Excel，只保留4個sheet
         with pd.ExcelWriter(r"C:\Programs\test_data\CalcuTimesStraightAndHorizontal.xlsx") as writer:
             dfMerged.to_excel(writer, sheet_name="Merged", index=False)
@@ -51,3 +56,5 @@ class CalcuTimesStraightAndHorizontal:
             dfSortedVariant.to_excel(writer, sheet_name="SortedFirstRowVariant", index=False)
             # 新增 dictUnique 統計到第4個 sheet
             dfDictUnique.to_excel(writer, sheet_name="ElementCount", index=False)
+            # 新增第5個sheet：dfDictUniqueHorizontal
+            dfDictUniqueHorizontal.to_excel(writer, sheet_name="ElementCountHorizontal", index=False)
