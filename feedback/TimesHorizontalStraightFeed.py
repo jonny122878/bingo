@@ -77,16 +77,21 @@ class TimesHorizontalStraightFeed:
             return 0.0
         df_merged_simple['percent'] = df_merged_simple.apply(calc_percent, axis=1)
 
-        # 新增：計算整體 percent 平均
-        percent_avg = df_merged_simple['percent'].mean() if not df_merged_simple.empty else 0.0
+        # 新增：計算整體 percent 平均（捨去第0列）
+        if not df_merged_simple.empty and len(df_merged_simple) > 1:
+            percent_avg = df_merged_simple['percent'].iloc[1:].mean()
+        elif not df_merged_simple.empty:
+            percent_avg = df_merged_simple['percent'].iloc[0]
+        else:
+            percent_avg = 0.0
         percent_avg_df = pd.DataFrame({'percent_avg': [percent_avg]})
 
         with pd.ExcelWriter(self.ExcelPath) as writer:
-            df.to_excel(writer, sheet_name="TopRows", index=False)
-            calcu.dfDictUniqueGroup.to_excel(writer, sheet_name="ElementCountGroupByRow", index=False)
-            df_merged.to_excel(writer, sheet_name="TopRowsWithElementCount", index=False)
-            df_merged_simple.to_excel(writer, sheet_name="BigShowOrdersAndBalls", index=False)
             percent_avg_df.to_excel(writer, sheet_name="PercentAverage", index=False)
+            df_merged_simple.to_excel(writer, sheet_name="BigShowOrdersAndBalls", index=False)
+            df_merged.to_excel(writer, sheet_name="TopRowsWithElementCount", index=False)
+            calcu.dfDictUniqueGroup.to_excel(writer, sheet_name="ElementCountGroupByRow", index=False)
+            df.to_excel(writer, sheet_name="TopRows", index=False)
 
 if __name__ == '__main__':
     import pandas as pd  # 匯入 pandas
