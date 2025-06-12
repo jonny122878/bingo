@@ -64,6 +64,8 @@ class TimesHorizontalStraightFeed:
         df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
         # 新增：只保留 bigShowOrders 和 Balls 欄位
         df_merged_simple = df_merged[['bigShowOrders', 'Balls']].copy()
+        # 新增 Balls_count 欄位，計算 Balls array 數量
+        df_merged_simple['Balls_count'] = df_merged_simple['Balls'].apply(lambda x: len(x) if isinstance(x, list) else 0)
         # 新增 compare 欄位，保留 bigShowOrders 和 Balls 交集
         def compare_elements(row):
             if isinstance(row['bigShowOrders'], list) and isinstance(row['Balls'], list):
@@ -86,6 +88,9 @@ class TimesHorizontalStraightFeed:
             percent_avg = 0.0
         percent_avg_df = pd.DataFrame({'percent_avg': [percent_avg]})
 
+        # 新增 compare_count 欄位，計算 compare array 數量
+        df_merged_simple['compare_count'] = df_merged_simple['compare'].apply(lambda x: len(x) if isinstance(x, list) else 0)
+
         with pd.ExcelWriter(self.ExcelPath) as writer:
             percent_avg_df.to_excel(writer, sheet_name="PercentAverage", index=False)
             df_merged_simple.to_excel(writer, sheet_name="BigShowOrdersAndBalls", index=False)
@@ -98,8 +103,9 @@ if __name__ == '__main__':
 
     sql = MSSQLDbContext({'server': 'wpdb2.hihosting.hinet.net', 'user': 'p89880749_p89880749',
                           'password': 'Jonny1070607!@#$%', 'database': 'p89880749_test'})
-    rows = sql.select('select TOP 4 drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
-    top_rows = rows[:4]  # 只取前4個元素
+    rows = sql.select('select drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
+    top_rows = rows[:100]  # 只取前4個元素
+    # top_rows = rows
 
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data\top_rows.xlsx'
