@@ -63,7 +63,7 @@ class TimesHorizontalStraightFeed:
         # 新增：merge df 和 calcu.dfDictUniqueGroup
         df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
         # 新增：只保留 bigShowOrders 和 Balls 欄位
-        df_merged_simple = df_merged[['bigShowOrders', 'Balls']].copy()
+        df_merged_simple = df_merged[['drawTerm','bigShowOrders', 'Balls']].copy()
         # 新增 Balls_count 欄位，計算 Balls array 數量
         df_merged_simple['Balls_count'] = df_merged_simple['Balls'].apply(lambda x: len(x) if isinstance(x, list) else 0)
         # 新增 compare 欄位，保留 bigShowOrders 和 Balls 交集
