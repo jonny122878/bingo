@@ -29,6 +29,45 @@ class TimesHorizontalStraightFeed:
         df = df[['drawTerm', 'bigShowOrders']]
         df.to_excel(self.ExcelPath, index=False)
 
+        # === 以下搬移 test_calcu 主要邏輯 ===
+        from parse.TimesAlgorithm import TimesAlgorithm
+        from parse.ball_mark.HorizontalBallMark import HorizontalBallMark
+        from parse.ball_mark.StraightBallMark import StraightBallMark
+        from parse.calcu.CalcuTimesStraightAndHorizontal import CalcuTimesStraightAndHorizontal
+
+        # 以 top_rows['bigShowOrders'] 作為 inputs
+        inputs = [row['bigShowOrders'] for row in top_rows if 'bigShowOrders' in row]
+
+        # Test_LoadDataByStraight variant
+        algo_straight = TimesAlgorithm()
+        algo_straight.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByStraight.xlsx"
+        algo_straight.BallMark = StraightBallMark()
+        algo_straight.TakeColumns = ["01S", "02S", "03S", "04S", "05S", "06S", "07S", "08S", "09S", "10S"]
+        algo_straight.LoadData(inputs)
+        dfStraight = algo_straight.DfExport
+
+        # Test_LoadDataByHorizontal variant
+        algo_horizontal = TimesAlgorithm()
+        algo_horizontal.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByHorizontal.xlsx"
+        algo_horizontal.BallMark = HorizontalBallMark()
+        algo_horizontal.TakeColumns = ["01H", "11H", "21H", "31H", "41H", "51H", "61H", "71H"]
+        algo_horizontal.LoadData(inputs)
+        dfHorizontal = algo_horizontal.DfExport
+
+        calcu = CalcuTimesStraightAndHorizontal()
+        calcu.Calcu(dfStraight, dfHorizontal, Horizontal=HorizontalBallMark(), Straight=StraightBallMark())
+        print(dfStraight)
+        print(dfHorizontal)
+
+        # 匯出 bigShowOrders 及 calcu.dfDictUniqueGroup 到 Excel 兩個 sheet
+        # 新增：merge df 和 calcu.dfDictUniqueGroup
+        df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
+
+        with pd.ExcelWriter(self.ExcelPath) as writer:
+            df.to_excel(writer, sheet_name="TopRows", index=False)
+            calcu.dfDictUniqueGroup.to_excel(writer, sheet_name="ElementCountGroupByRow", index=False)
+            df_merged.to_excel(writer, sheet_name="TopRowsWithElementCount", index=False)
+
 if __name__ == '__main__':
     import pandas as pd  # 匯入 pandas
 
