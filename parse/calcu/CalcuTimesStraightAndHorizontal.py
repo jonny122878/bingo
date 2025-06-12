@@ -39,14 +39,15 @@ class CalcuTimesStraightAndHorizontal:
         # 移除 value == 1 的元素
         dictUnique = {k: v for k, v in dictUnique.items() if v > 1}
         dfDictUnique = pd.DataFrame(list(dictUnique.items()), columns=["Ball", "Count"])
-        # 輸出到 Excel，dfMerged 為第 1 個 sheet，dfStraight 為第 2 個 sheet，dfHorizontal 為第 3 個 sheet
+        # 輸出到 Excel，只保留4個sheet
         with pd.ExcelWriter(r"C:\Programs\test_data\CalcuTimesStraightAndHorizontal.xlsx") as writer:
             dfMerged.to_excel(writer, sheet_name="Merged", index=False)
-            dfStraight.to_excel(writer, sheet_name="StraightB", index=False)
-            dfHorizontal.to_excel(writer, sheet_name="HorizontalB", index=False)
+            # 移除 dfStraight 和 dfHorizontal 的輸出
+            # dfStraight.to_excel(writer, sheet_name="StraightB", index=False)
+            # dfHorizontal.to_excel(writer, sheet_name="HorizontalB", index=False)
             # 新增排序後的第一列到新工作表，左側有標題
             dfSorted.to_excel(writer, sheet_name="SortedFirstRow", index=False)
-            # 新增 variant 結果到第5個sheet
+            # 新增 variant 結果到第3個sheet
             dfSortedVariant.to_excel(writer, sheet_name="SortedFirstRowVariant", index=False)
-            # 新增 dictUnique 統計到最後一個 sheet
+            # 新增 dictUnique 統計到第4個 sheet
             dfDictUnique.to_excel(writer, sheet_name="ElementCount", index=False)
