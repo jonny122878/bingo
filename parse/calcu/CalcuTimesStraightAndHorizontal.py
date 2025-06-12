@@ -49,9 +49,16 @@ class CalcuTimesStraightAndHorizontal:
             dfDictUniqueAll = pd.concat(dfDictUnique_list, ignore_index=True)
         else:
             dfDictUniqueAll = pd.DataFrame()
+        # 新增：依 RowIndex group by，將 Ball 合併成 array
+        if not dfDictUniqueAll.empty:
+            dfDictUniqueGroup = dfDictUniqueAll.groupby('RowIndex')['Ball'].apply(list).reset_index()
+            dfDictUniqueGroup.rename(columns={'Ball': 'Balls'}, inplace=True)
+        else:
+            dfDictUniqueGroup = pd.DataFrame()
         # 輸出到 Excel
         with pd.ExcelWriter(r"C:\Programs\test_data\CalcuTimesStraightAndHorizontal.xlsx") as writer:
             dfMerged.to_excel(writer, sheet_name="Merged", index=False)
             dfSorted.to_excel(writer, sheet_name="SortedFirstRow", index=False)
             dfSortedVariant.to_excel(writer, sheet_name="SortedFirstRowVariant", index=False)
             dfDictUniqueAll.to_excel(writer, sheet_name="ElementCountAllRows", index=False)
+            dfDictUniqueGroup.to_excel(writer, sheet_name="ElementCountGroupByRow", index=False)
