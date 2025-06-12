@@ -8,6 +8,7 @@ class TimesHorizontalStraightFeed:
     def __init__(self) -> None:
         # ...existing code...
         self._ExcelPath = None
+        self._ExcelFile = None  # 新增 ExcelFile 屬性
 
     @property
     def ExcelPath(self):
@@ -17,20 +18,28 @@ class TimesHorizontalStraightFeed:
     def ExcelPath(self, value):
         self._ExcelPath = value
 
-    def feed(self, top_rows):
+    @property
+    def ExcelFile(self):
+        return self._ExcelFile
+
+    @ExcelFile.setter
+    def ExcelFile(self, value):
+        self._ExcelFile = value
+
+    def feed(self, top_rows, skipStart=0, skipEnd=0, take_variant_count=4):
         # 將 bigShowOrder 拆分為陣列，新增欄位 bigShowOrders
         for row in top_rows:
             if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
                 row['bigShowOrders'] = row['bigShowOrder'].split(',')
         # 呼叫 calcu
-        self.calcu(top_rows)
+        for skip in range(skipStart, skipEnd + 1):
+            self.calcu(top_rows, skip, take_variant_count)
 
-    def calcu(self, top_rows):
+    def calcu(self, top_rows, skip_variant_count=0, take_variant_count=4):
         # 轉為 DataFrame 並匯出為 Excel，只包含 drawTerm 和 bigShowOrders
         import pandas as pd
         df = pd.DataFrame(top_rows)
         df = df[['drawTerm', 'bigShowOrders']]
-        df.to_excel(self.ExcelPath, index=False)
 
         # === 以下搬移 test_calcu 主要邏輯 ===
         from parse.TimesAlgorithm import TimesAlgorithm
@@ -58,8 +67,8 @@ class TimesHorizontalStraightFeed:
         dfHorizontal = algo_horizontal.DfExport
 
         calcu = CalcuTimesStraightAndHorizontal()
-        calcu.SkipVariantCount = 9
-        calcu.TakeVariantCount = 4
+        calcu.SkipVariantCount = skip_variant_count
+        calcu.TakeVariantCount = take_variant_count
         calcu.Calcu(dfStraight, dfHorizontal, Horizontal=HorizontalBallMark(), Straight=StraightBallMark())
         print(dfStraight)
         print(dfHorizontal)
@@ -95,8 +104,17 @@ class TimesHorizontalStraightFeed:
 
         # 新增 compare_count 欄位，計算 compare array 數量
         df_merged_simple['compare_count'] = df_merged_simple['compare'].apply(lambda x: len(x) if isinstance(x, list) else 0)
-
-        with pd.ExcelWriter(self.ExcelPath) as writer:
+        # line 104: 組合 ExcelPath 與 ExcelFile
+        fileNameNoExten = os.path.splitext(os.path.basename(self.ExcelFile))[0]
+        fileExten = os.path.splitext(os.path.basename(self.ExcelFile))[1]
+        print(fileNameNoExten)
+        print(fileExten)
+        variant_fileName = f"{fileNameNoExten}_skip{skip_variant_count}_take{take_variant_count}{fileExten}"
+        if self.ExcelPath and self.ExcelFile:
+            excel_full_path = os.path.join(self.ExcelPath, variant_fileName)
+        else:
+            excel_full_path = self.ExcelPath  # fallback
+        with pd.ExcelWriter(excel_full_path) as writer:
             percent_avg_df.to_excel(writer, sheet_name="PercentAverage", index=False)
             df_merged_simple.to_excel(writer, sheet_name="BigShowOrdersAndBalls", index=False)
             df_merged.to_excel(writer, sheet_name="TopRowsWithElementCount", index=False)
@@ -109,11 +127,12 @@ if __name__ == '__main__':
     sql = MSSQLDbContext({'server': 'wpdb2.hihosting.hinet.net', 'user': 'p89880749_p89880749',
                           'password': 'Jonny1070607!@#$%', 'database': 'p89880749_test'})
     rows = sql.select('select drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
-    top_rows = rows[:100]  # 只取前4個元素
+    top_rows = rows[:50]  # 只取前4個元素
     # top_rows = rows
 
     feed_instance = TimesHorizontalStraightFeed()
-    feed_instance.ExcelPath = r'C:\Programs\test_data\top_rows.xlsx'
-    feed_instance.feed(top_rows)
+    feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
+    feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
+    feed_instance.feed(top_rows,0,13,5)
 
     print('')
