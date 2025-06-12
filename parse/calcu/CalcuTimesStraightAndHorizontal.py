@@ -19,8 +19,10 @@ class CalcuTimesStraightAndHorizontal:
             sorted_dict[f'Row {i+1}'] = sorted_keys
             sorted_dict[f'Sorted{i+1}'] = sorted_values
             # variant: 跳過前5個元素後取8個元素
+            variant_indices = list(range(5, 13))
             variant_values = sorted_values[5:13]
-            variant_keys = [dfMerged.columns[idx] for idx in range(5, 13)]
+            # 從 variant_values index 反推 column name sorted_keys
+            variant_keys = [sorted_keys[idx] for idx in range(5, 13)]
             variant_balls = []
             for k in variant_keys:
                 balls = Horizontal.markToBalls(str(k))
