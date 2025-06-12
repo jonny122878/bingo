@@ -11,6 +11,8 @@ class CalcuTimesStraightAndHorizontal:
         self._dfSortedVariant = None
         self._dfDictUniqueAll = None
         self._dfDictUniqueGroup = None
+        self._TakeVariantCount = 5  # 取幾個元素
+        self._SkipVariantCount = 0  # 跳過幾個元素
 
     @property
     def dfMerged(self):
@@ -52,6 +54,22 @@ class CalcuTimesStraightAndHorizontal:
     def dfDictUniqueGroup(self, value):
         self._dfDictUniqueGroup = value
 
+    @property
+    def TakeVariantCount(self):
+        return self._TakeVariantCount
+
+    @TakeVariantCount.setter
+    def TakeVariantCount(self, value):
+        self._TakeVariantCount = value
+
+    @property
+    def SkipVariantCount(self):
+        return self._SkipVariantCount
+
+    @SkipVariantCount.setter
+    def SkipVariantCount(self, value):
+        self._SkipVariantCount = value
+
     def Calcu(self, dfStraight: DataFrame, dfHorizontal: DataFrame, Horizontal: IBallMark, Straight: IBallMark) -> None:
         # merge DataFrame
         dfMerged = pd.concat([dfStraight, dfHorizontal], axis=1)
@@ -67,11 +85,12 @@ class CalcuTimesStraightAndHorizontal:
             sorted_values = np.sort(row_np)
             sorted_dict[f'Row {i+1}'] = sorted_keys
             sorted_dict[f'Sorted{i+1}'] = sorted_values
-            # variant: 跳過前5個元素後取8個元素
-            variant_indices = list(range(5, 13))
-            variant_values = sorted_values[5:13]
-            # 從 variant_values index 反推 column name sorted_keys
-            variant_keys = [sorted_keys[idx] for idx in range(5, 13)]
+            # variant: 跳過 N 個元素後取 M 個元素
+            start = self.SkipVariantCount
+            end = self.SkipVariantCount + self.TakeVariantCount
+            variant_indices = list(range(start, end))
+            variant_values = sorted_values[start:end]
+            variant_keys = [sorted_keys[idx] for idx in range(start, end)]
             variant_balls = []
             for k in variant_keys:
                 balls = Horizontal.markToBalls(str(k))

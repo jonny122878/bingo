@@ -29,6 +29,8 @@ class TestCalcuTimesStraightAndHorizontal(unittest.TestCase):
         dfHorizontal = algo_horizontal.DfExport
 
         calcu = CalcuTimesStraightAndHorizontal()
+        calcu.SkipVariantCount = 14
+        calcu.TakeVariantCount = 4
         calcu.Calcu(dfStraight, dfHorizontal, Horizontal=HorizontalBallMark(), Straight=StraightBallMark())
         print(dfStraight)
         print(dfHorizontal)
