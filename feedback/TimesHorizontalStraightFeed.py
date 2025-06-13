@@ -132,12 +132,12 @@ if __name__ == '__main__':
     sql = MSSQLDbContext({'server': 'wpdb2.hihosting.hinet.net', 'user': 'p89880749_p89880749',
                           'password': 'Jonny1070607!@#$%', 'database': 'p89880749_test'})
     rows = sql.select('select drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
-    top_rows = rows[:50]  # 只取前4個元素
+    top_rows = rows[60:110]  # 只取前4個元素
     # top_rows = rows
 
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(top_rows, sortQty=18, take_arr=[4,5,6,7,8])
+    feed_instance.feed(top_rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10])
 
     print('')
