@@ -26,14 +26,16 @@ class TimesHorizontalStraightFeed:
     def ExcelFile(self, value):
         self._ExcelFile = value
 
-    def feed(self, top_rows, skipStart=0, skipEnd=0, take_variant_count=4):
+    def feed(self, top_rows, sortQty, take_arr):
         # 將 bigShowOrder 拆分為陣列，新增欄位 bigShowOrders
         for row in top_rows:
             if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
                 row['bigShowOrders'] = row['bigShowOrder'].split(',')
-        # 呼叫 calcu
-        for skip in range(skipStart, skipEnd + 1):
-            self.calcu(top_rows, skip, take_variant_count)
+        # 對每個 take 進行處理
+        for take in take_arr:
+            skipEnd = (sortQty - take) + 1
+            for skip in range(0, skipEnd):
+                self.calcu(top_rows, skip, take)
 
     def calcu(self, top_rows, skip_variant_count=0, take_variant_count=4):
         # 轉為 DataFrame 並匯出為 Excel，只包含 drawTerm 和 bigShowOrders
@@ -112,7 +114,9 @@ class TimesHorizontalStraightFeed:
         skip_str = f"{skip_variant_count:02d}"  # 轉為二位數字串
         variant_fileName = f"{fileNameNoExten}_{skip_str}_skip_take{take_variant_count}{fileExten}"
         if self.ExcelPath and self.ExcelFile:
-            excel_full_path = os.path.join(self.ExcelPath, variant_fileName)
+            subfolder = os.path.join(self.ExcelPath, f"take{take_variant_count}")
+            os.makedirs(subfolder, exist_ok=True)
+            excel_full_path = os.path.join(subfolder, variant_fileName)
         else:
             excel_full_path = self.ExcelPath  # fallback
         with pd.ExcelWriter(excel_full_path) as writer:
@@ -134,6 +138,6 @@ if __name__ == '__main__':
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(top_rows,0,15,3)
+    feed_instance.feed(top_rows, sortQty=18, take_arr=[4,5,6,7,8])
 
     print('')
