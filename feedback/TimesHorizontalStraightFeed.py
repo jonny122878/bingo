@@ -26,18 +26,24 @@ class TimesHorizontalStraightFeed:
     def ExcelFile(self, value):
         self._ExcelFile = value
 
-    def feed(self, top_rows, sortQty, take_arr):
-        # 將 bigShowOrder 拆分為陣列，新增欄位 bigShowOrders
-        for row in top_rows:
-            if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
-                row['bigShowOrders'] = row['bigShowOrder'].split(',')
-        # 對每個 take 進行處理
-        for take in take_arr:
-            skipEnd = (sortQty - take) + 1
-            for skip in range(0, skipEnd):
-                self.calcu(top_rows, skip, take)
+    def feed(self, rows, sortQty, take_arr, randTimes=None):
+        import random
+        for i in range(randTimes):
+            randStart = random.randint(1, 493)
+            randEnd = randStart + 50
+            print(f"Random range: randStart={randStart}, randEnd={randEnd}")
+            top_rows = rows[randStart:randEnd]
+            # 將 bigShowOrder 拆分為陣列，新增欄位 bigShowOrders
+            for row in top_rows:
+                if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
+                    row['bigShowOrders'] = row['bigShowOrder'].split(',')
+            # 對每個 take 進行處理
+            for take in take_arr:
+                skipEnd = (sortQty - take) + 1
+                for skip in range(0, skipEnd):
+                    self.calcu(top_rows, skip, take, randStart=randStart)
 
-    def calcu(self, top_rows, skip_variant_count=0, take_variant_count=4):
+    def calcu(self, top_rows, skip_variant_count=0, take=4, randStart=None):
         # 轉為 DataFrame 並匯出為 Excel，只包含 drawTerm 和 bigShowOrders
         import pandas as pd
         df = pd.DataFrame(top_rows)
@@ -70,14 +76,18 @@ class TimesHorizontalStraightFeed:
 
         calcu = CalcuTimesStraightAndHorizontal()
         calcu.SkipVariantCount = skip_variant_count
-        calcu.TakeVariantCount = take_variant_count
+        calcu.TakeVariantCount = take
         calcu.Calcu(dfStraight, dfHorizontal, Horizontal=HorizontalBallMark(), Straight=StraightBallMark())
         print(dfStraight)
         print(dfHorizontal)
 
         # 匯出 bigShowOrders 及 calcu.dfDictUniqueGroup 到 Excel 兩個 sheet
         # 新增：merge df 和 calcu.dfDictUniqueGroup
-        df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
+        # 修正：若 'RowIndex' 不存在則用 right_index=True
+        if 'RowIndex' in calcu.dfDictUniqueGroup.columns:
+            df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
+        else:
+            df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_index=True, how='left')
         # 新增：只保留 bigShowOrders 和 Balls 欄位
         df_merged_simple = df_merged[['drawTerm','bigShowOrders', 'Balls']].copy()
         # 新增 Balls_count 欄位，計算 Balls array 數量
@@ -112,9 +122,13 @@ class TimesHorizontalStraightFeed:
         print(fileNameNoExten)
         print(fileExten)
         skip_str = f"{skip_variant_count:02d}"  # 轉為二位數字串
-        variant_fileName = f"{fileNameNoExten}_{skip_str}_skip_take{take_variant_count}{fileExten}"
+        variant_fileName = f"{fileNameNoExten}_{skip_str}_skip_take{take}{fileExten}"
+        # 新增: subfolder 包含 randStart
         if self.ExcelPath and self.ExcelFile:
-            subfolder = os.path.join(self.ExcelPath, f"take{take_variant_count}")
+            if randStart is not None:
+                subfolder = os.path.join(self.ExcelPath,f"rand{randStart}", f"take{take}")
+            else:
+                subfolder = os.path.join(self.ExcelPath, f"take{take}")
             os.makedirs(subfolder, exist_ok=True)
             excel_full_path = os.path.join(subfolder, variant_fileName)
         else:
@@ -128,16 +142,16 @@ class TimesHorizontalStraightFeed:
 
 if __name__ == '__main__':
     import pandas as pd  # 匯入 pandas
+    import random  # 匯入 random
+
 
     sql = MSSQLDbContext({'server': 'wpdb2.hihosting.hinet.net', 'user': 'p89880749_p89880749',
                           'password': 'Jonny1070607!@#$%', 'database': 'p89880749_test'})
     rows = sql.select('select drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
-    top_rows = rows[60:110]  # 只取前4個元素
-    # top_rows = rows
 
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(top_rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10])
+    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10], randTimes=3)
 
     print('')
