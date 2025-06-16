@@ -13,7 +13,7 @@ class TestLineChart(unittest.TestCase):
         for group in group_arr:
             import os
             import pandas as pd
-            dir_path = rf"C:\Programs\test_data\take{group}"
+            dir_path = rf"C:\Programs\test_data\rand462\take{group}"
             excel_files = [f for f in os.listdir(dir_path) if f.endswith('.xlsx') or f.endswith('.xls')]
             excel_files.sort()  # 從小到大排序
             print(f"Excel files in take{group}:", excel_files)
