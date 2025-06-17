@@ -90,7 +90,9 @@ class TimesHorizontalStraightFeed:
             df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_on='RowIndex', how='left')
         else:
             df_merged = pd.merge(df, calcu.dfDictUniqueGroup, left_index=True, right_index=True, how='left')
-        # 新增：只保留 bigShowOrders 和 Balls 欄位
+        # 確保 'Balls' 欄位存在，若無則補上一個空值欄位
+        if 'Balls' not in df_merged.columns:
+            df_merged['Balls'] = None
         df_merged_simple = df_merged[['drawTerm','bigShowOrders', 'Balls']].copy()
         # 新增 Balls_count 欄位，計算 Balls array 數量
         df_merged_simple['Balls_count'] = df_merged_simple['Balls'].apply(lambda x: len(x) if isinstance(x, list) else 0)
@@ -157,7 +159,7 @@ if __name__ == '__main__':
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10], randTimes=3)
+    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6], randTimes=10)
     # feed_instance.feed(rows, sortQty=18, take_arr=[3], randTimes=1)
 
     print('')
