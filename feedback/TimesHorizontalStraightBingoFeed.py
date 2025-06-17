@@ -172,7 +172,7 @@ if __name__ == '__main__':
     feed_instance = TimesHorizontalStraightBingoFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows_bingo.xlsx'           # 設定檔案名稱
-    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8], randTimes=2)
+    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8], randTimes=10)
     # feed_instance.feed(rows, sortQty=18, take_arr=[3], randTimes=1)
 
     print('')# ...copy all contents from TimesHorizontalStraightFeed.py...

@@ -59,12 +59,14 @@ class TestLineChart(unittest.TestCase):
         # group 欄位為 excel_file 去除副檔名
         df['group'] = df['excel_file'].apply(lambda x: os.path.splitext(x)[0])
         # 排除 average 為 None
-        group_mean = df[df['average'].notnull()].groupby('group', as_index=False)['average'].mean()
-        group_mean.rename(columns={'average': 'average_mean'}, inplace=True)
+        group_stats = df[df['average'].notnull()].groupby('group', as_index=False).agg(
+            average_mean=('average', 'mean'),
+            count=('average', 'size')
+        )
         output_path = os.path.join(root_dir, 'excel_file_list.xlsx')
         with pd.ExcelWriter(output_path) as writer:
             df.to_excel(writer, index=False, sheet_name='Sheet1')
-            group_mean.to_excel(writer, index=False, sheet_name='Sheet2')
+            group_stats.to_excel(writer, index=False, sheet_name='Sheet2')
         print(f"Excel file list exported to: {output_path}")
 
 if __name__ == "__main__": 
