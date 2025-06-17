@@ -60,7 +60,8 @@ class TimesHorizontalStraightFeed:
 
         # Test_LoadDataByStraight variant
         algo_straight = TimesAlgorithm()
-        algo_straight.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByStraight.xlsx"
+        # algo_straight.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByStraight.xlsx"
+        algo_straight.ExcelPath = None
         algo_straight.BallMark = StraightBallMark()
         algo_straight.TakeColumns = ["01S", "02S", "03S", "04S", "05S", "06S", "07S", "08S", "09S", "10S"]
         algo_straight.LoadData(inputs)
@@ -68,7 +69,8 @@ class TimesHorizontalStraightFeed:
 
         # Test_LoadDataByHorizontal variant
         algo_horizontal = TimesAlgorithm()
-        algo_horizontal.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByHorizontal.xlsx"
+        # algo_horizontal.ExcelPath = r"C:\Programs\test_data\TimesAlgorithmByHorizontal.xlsx"
+        algo_horizontal.ExcelPath = None
         algo_horizontal.BallMark = HorizontalBallMark()
         algo_horizontal.TakeColumns = ["01H", "11H", "21H", "31H", "41H", "51H", "61H", "71H"]
         algo_horizontal.LoadData(inputs)
@@ -155,7 +157,7 @@ if __name__ == '__main__':
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10], randTimes=1)
+    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10], randTimes=5)
     # feed_instance.feed(rows, sortQty=18, take_arr=[3], randTimes=1)
 
     print('')
