@@ -58,7 +58,8 @@ class TestLineChart(unittest.TestCase):
         df = pd.DataFrame(result, columns=['directory', 'excel_file', 'excel', 'average'])
         # group 欄位為 excel_file 去除副檔名
         df['group'] = df['excel_file'].apply(lambda x: os.path.splitext(x)[0])
-        group_mean = df.groupby('group', as_index=False)['average'].mean()
+        # 排除 average 為 None
+        group_mean = df[df['average'].notnull()].groupby('group', as_index=False)['average'].mean()
         group_mean.rename(columns={'average': 'average_mean'}, inplace=True)
         output_path = os.path.join(root_dir, 'excel_file_list.xlsx')
         with pd.ExcelWriter(output_path) as writer:
