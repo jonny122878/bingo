@@ -38,7 +38,7 @@ class TestLineChart(unittest.TestCase):
     def Test_excel_unit_plot(self):
         """
         遍歷指定根目錄下的所有子目錄，將每個子目錄的 Excel 檔案清單輸出到一個 Excel 檔案，欄位為 directory、excel_file、excel（完整路徑）、average（PercentAverage Sheet A2）。
-        並在 Sheet2 輸出 group by excel 欄位 group (資料夾名稱) 的 average mean。
+        並在 Sheet2 輸出 group by excel_file（不含副檔名） 的 average mean。
         """
         import os
         import pandas as pd
@@ -56,8 +56,8 @@ class TestLineChart(unittest.TestCase):
                     print(f"Error reading PercentAverage from {excel_path}: {e}")
                 result.append({'directory': dirpath, 'excel_file': fname, 'excel': excel_path, 'average': average})
         df = pd.DataFrame(result, columns=['directory', 'excel_file', 'excel', 'average'])
-        # 以 group 欄位（取自 directory 最後一層資料夾名稱）分組
-        df['group'] = df['directory'].apply(lambda x: os.path.basename(x))
+        # group 欄位為 excel_file 去除副檔名
+        df['group'] = df['excel_file'].apply(lambda x: os.path.splitext(x)[0])
         group_mean = df.groupby('group', as_index=False)['average'].mean()
         group_mean.rename(columns={'average': 'average_mean'}, inplace=True)
         output_path = os.path.join(root_dir, 'excel_file_list.xlsx')
