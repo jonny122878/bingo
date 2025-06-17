@@ -8,12 +8,13 @@ class TestLineChart(unittest.TestCase):
         chart = LineChart()
         chart.plot(x)
 
-    def Test_group8_plot(self):
+    def Test_rand_unit_plot(self):
         group_arr = [3,4,5,6,7,8,9,10]
+        # group_arr = [3]
         for group in group_arr:
             import os
             import pandas as pd
-            dir_path = rf"C:\Programs\test_data\rand462\take{group}"
+            dir_path = rf"C:\Programs\test_data\rand417\take{group}"
             excel_files = [f for f in os.listdir(dir_path) if f.endswith('.xlsx') or f.endswith('.xls')]
             excel_files.sort()  # 從小到大排序
             print(f"Excel files in take{group}:", excel_files)
@@ -37,7 +38,7 @@ if __name__ == "__main__":
     try:
         suite = unittest.TestSuite()
         # suite.addTest(TestLineChart('Test_plot'))
-        suite.addTest(TestLineChart('Test_group8_plot'))
+        suite.addTest(TestLineChart('Test_rand_unit_plot'))
         runner = unittest.TextTestRunner(verbosity=2)
         runner.run(suite)
     except SystemExit:

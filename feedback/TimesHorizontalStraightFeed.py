@@ -100,16 +100,19 @@ class TimesHorizontalStraightFeed:
         df_merged_simple['compare'] = df_merged_simple.apply(compare_elements, axis=1)
         # 新增百分比欄位，分母 Balls 長度，分子 compare 長度
         def calc_percent(row):
-            if isinstance(row['Balls'], list) and len(row['Balls']) > 0:
-                return round(len(row['compare']) / len(row['Balls']) * 100, 2)
-            return 0.0
+            if isinstance(row['Balls'], list):
+                if len(row['Balls']) > 0:
+                    return round(len(row['compare']) / len(row['Balls']) * 100, 2)
+                else:
+                    return None  # Balls 為空時回傳 None
+            return None
         df_merged_simple['percent'] = df_merged_simple.apply(calc_percent, axis=1)
 
         # 新增：計算整體 percent 平均（捨去第0列）
-        if not df_merged_simple.empty and len(df_merged_simple) > 1:
-            percent_avg = df_merged_simple['percent'].iloc[1:].mean()
-        elif not df_merged_simple.empty:
-            percent_avg = df_merged_simple['percent'].iloc[0]
+        percent_series = df_merged_simple['percent'] if len(df_merged_simple) > 1 else df_merged_simple['percent']
+        percent_series = percent_series.dropna()
+        if not percent_series.empty:
+            percent_avg = percent_series.mean()
         else:
             percent_avg = 0.0
         percent_avg_df = pd.DataFrame({'percent_avg': [percent_avg]})
@@ -152,6 +155,7 @@ if __name__ == '__main__':
     feed_instance = TimesHorizontalStraightFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
     feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10], randTimes=3)
+    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8,9,10], randTimes=1)
+    # feed_instance.feed(rows, sortQty=18, take_arr=[3], randTimes=1)
 
     print('')
