@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from typing import List
 from db.db import MSSQLDbContext
 
-class TimesHorizontalStraightFeed:
+class TimesHorizontalStraightBingoFeed:
     def __init__(self) -> None:
         # ...existing code...
         self._ExcelPath = None
@@ -93,6 +93,19 @@ class TimesHorizontalStraightFeed:
         # 確保 'Balls' 欄位存在，若無則補上一個空值欄位
         if 'Balls' not in df_merged.columns:
             df_merged['Balls'] = None
+
+        # 新增條件：所有 Balls array 尾數號碼須一致，否則清空 array
+        def filter_balls_tail_consistent(balls):
+            if isinstance(balls, list) and balls:
+                # 取每個號碼的尾數（字串最後一位）
+                tails = [str(b)[-1] for b in balls]
+                if all(t == tails[0] for t in tails):
+                    return balls
+                else:
+                    return []
+            return balls
+        df_merged['Balls'] = df_merged['Balls'].apply(filter_balls_tail_consistent)
+
         df_merged_simple = df_merged[['drawTerm','bigShowOrders', 'Balls']].copy()
         # 新增 Balls_count 欄位，計算 Balls array 數量
         df_merged_simple['Balls_count'] = df_merged_simple['Balls'].apply(lambda x: len(x) if isinstance(x, list) else 0)
@@ -156,10 +169,10 @@ if __name__ == '__main__':
                           'password': 'Jonny1070607!@#$%', 'database': 'p89880749_test'})
     rows = sql.select('select drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
 
-    feed_instance = TimesHorizontalStraightFeed()
+    feed_instance = TimesHorizontalStraightBingoFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'  # 設定資料夾路徑
-    feed_instance.ExcelFile = 'top_rows.xlsx'           # 設定檔案名稱
-    feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8], randTimes=30)
-    # feed_instance.feed(rows, sortQty=18, take_arr=[3], randTimes=1)
+    feed_instance.ExcelFile = 'top_rows_bingo.xlsx'           # 設定檔案名稱
+    # feed_instance.feed(rows, sortQty=18, take_arr=[3,4,5,6,7,8], randTimes=30)
+    feed_instance.feed(rows, sortQty=18, take_arr=[3], randTimes=1)
 
-    print('')
+    print('')# ...copy all contents from TimesHorizontalStraightFeed.py...
