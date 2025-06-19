@@ -1,8 +1,11 @@
 import sys
 import os
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from MACD.loop_MACD import MACDPlot
 from typing import List
 from db.db import MSSQLDbContext
+from parse.TimesAlgorithm import TimesAlgorithm
 
 class TimesMACDFeed:
     def __init__(self) -> None:
@@ -36,7 +39,29 @@ class TimesMACDFeed:
                 if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
                     row['bigShowOrders'] = row['bigShowOrder'].split(',')
             # 清空邏輯，僅保留參數 rows, randTimes
+            self.calcu(top_rows, randStart)
             pass
+
+    def calcu(self, rows,i):
+        algo = TimesAlgorithm()
+        fileNameNoExten = os.path.splitext(os.path.basename(self.ExcelFile))[0]
+        fileExten = os.path.splitext(os.path.basename(self.ExcelFile))[1]
+        print(fileNameNoExten)
+        print(fileExten)
+        variant_fileName = f"{fileNameNoExten}_{i}{fileExten}"
+        algo.ExcelPath = os.path.join(self._ExcelPath, variant_fileName)
+        takeColumns = ["79", "80"]
+        algo.TakeColumns = takeColumns
+        # 以 rows['bigShowOrders'] 轉為 list 作為 inputs
+        inputs = list(row['bigShowOrders'] for row in rows if 'bigShowOrders' in row)
+        algo.LoadData(inputs)
+        ball_field69 = 'Ball69'
+        import matplotlib.pyplot as plt
+        macd_plot69 = MACDPlot()
+        fig, ax = plt.subplots(figsize=(12, 6))
+        macd_plot69.plot(ax, rows, date_field='drawTerm', close_field=ball_field69)
+        plt.show()
+        pass
 
 if __name__ == '__main__':
     import pandas as pd
@@ -46,6 +71,6 @@ if __name__ == '__main__':
     rows = sql.select('select drawTerm, bigShowOrder from Bingo ORDER BY drawTerm DESC ')
     feed_instance = TimesMACDFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'
-    feed_instance.ExcelFile = 'top_rows.xlsx'
-    feed_instance.feed(rows, randTimes=30)
+    feed_instance.ExcelFile = 'MACD.xlsx'
+    feed_instance.feed(rows, randTimes=5)
     print('')

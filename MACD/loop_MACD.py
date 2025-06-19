@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List, Dict
-from db import MongoDbContext
+# from db import MongoDbContext
 
 # region example
 # # 假設有一個 DataFrame 包含日期和收盤價
@@ -106,53 +106,53 @@ class MACDPlot:
 
 
         # 主程式
-db = MongoDbContext("localhost", "bingo")
-table = "bingo_accum_times"
-queryKey = {}
+# db = MongoDbContext("localhost", "bingo")
+# table = "bingo_accum_times"
+# queryKey = {}
 
-querys = db.Find(table, queryKey).sort("DrawTerm", -1)
-results = list(querys)
-results = results[:30]
-resultAsc = sorted(results, key=lambda x: x["DrawTerm"])
-print("")
+# querys = db.Find(table, queryKey).sort("DrawTerm", -1)
+# results = list(querys)
+# results = results[:30]
+# resultAsc = sorted(results, key=lambda x: x["DrawTerm"])
+# print("")
 
-# 將 results 加載到 DataFrame
-# df = pd.DataFrame(results)
+# # 將 results 加載到 DataFrame
+# # df = pd.DataFrame(results)
 
-# # 將 DataFrame 導出為 Excel 文件
-# output_file = 'MACD_times.xlsx'
-# df.to_excel(output_file, index=False, encoding='utf-8')
+# # # 將 DataFrame 導出為 Excel 文件
+# # output_file = 'MACD_times.xlsx'
+# # df.to_excel(output_file, index=False, encoding='utf-8')
 
-ballFields = []
-# 繪製第一個視窗的圖表
-idxStart = 1
-idxEnd = 40
-for i in range(idxStart, idxEnd):
-    # fig1, ax1 = plt.subplots(figsize=(12, 6))  # 第一個視窗
-    ball_field = 'Ball' + str(i).zfill(2)
-    macd_plot1 = MACDPlot()
-    isShow = macd_plot1.getShow(resultAsc, date_field='DrawTerm',
-                                close_field=ball_field)
-    if isShow:
-        ballFields.append(ball_field)
-    # plt.tight_layout()
-    # if i != idxEnd and isShow:
-    #     plt.show(block=False)  # 顯示第一個視窗，但不阻塞程式執行
-    # elif isShow:
-    #     plt.show()
-ballFieldEnd = ballFields[-1]
-for ballField in ballFields:
-    fig1, ax1 = plt.subplots(figsize=(12, 6))
-    macd_plot1 = MACDPlot()
-    macd_plot1.plot(ax1, resultAsc, date_field='DrawTerm',
-                    close_field=ballField)
-    plt.tight_layout()
-    if ballField != ballFieldEnd:
-        plt.show(block=False)  # 顯示第一個視窗，但不阻塞程式執行
-    else:
-        plt.show()
+# ballFields = []
+# # 繪製第一個視窗的圖表
+# idxStart = 1
+# idxEnd = 40
+# for i in range(idxStart, idxEnd):
+#     # fig1, ax1 = plt.subplots(figsize=(12, 6))  # 第一個視窗
+#     ball_field = 'Ball' + str(i).zfill(2)
+#     macd_plot1 = MACDPlot()
+#     isShow = macd_plot1.getShow(resultAsc, date_field='DrawTerm',
+#                                 close_field=ball_field)
+#     if isShow:
+#         ballFields.append(ball_field)
+#     # plt.tight_layout()
+#     # if i != idxEnd and isShow:
+#     #     plt.show(block=False)  # 顯示第一個視窗，但不阻塞程式執行
+#     # elif isShow:
+#     #     plt.show()
+# ballFieldEnd = ballFields[-1]
+# for ballField in ballFields:
+#     fig1, ax1 = plt.subplots(figsize=(12, 6))
+#     macd_plot1 = MACDPlot()
+#     macd_plot1.plot(ax1, resultAsc, date_field='DrawTerm',
+#                     close_field=ballField)
+#     plt.tight_layout()
+#     if ballField != ballFieldEnd:
+#         plt.show(block=False)  # 顯示第一個視窗，但不阻塞程式執行
+#     else:
+#         plt.show()
 
-print("")
+# print("")
 # fig1, ax1 = plt.subplots(figsize=(12, 6))  # 第一個視窗
 # macd_plot1 = MACDPlot()
 # macd_plot1.plot(ax1, resultAsc, date_field='DrawTerm', close_field='Ball69')
