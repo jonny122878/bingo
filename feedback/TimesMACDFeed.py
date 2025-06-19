@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from MACD.loop_MACD import MACDPlot
+from MACD.MACD import MACDPlot
 from typing import List
 from db.db import MSSQLDbContext
 from parse.TimesAlgorithm import TimesAlgorithm
@@ -62,20 +62,43 @@ class TimesMACDFeed:
         if isinstance(rows, list) and len(rows) > 0 and 'drawTerm' in rows[0]:
             draw_terms = [row['drawTerm'] for row in rows]
             df.insert(0, 'drawTerm', draw_terms)
-        print(df)
+        # print(df)
         # 匯出 df 到 Excel
         export_path = os.path.join(self._ExcelPath, f"export_{i}.xlsx")
         df.to_excel(export_path, index=False)
         print(f"Exported to {export_path}")
-        # 取得 df 最後一列丟入 plot rows 內
-        last_row = df.iloc[-1].to_dict()
-        plot_rows = [last_row]
-        ball_field69 = '69'
-        import matplotlib.pyplot as plt
-        macd_plot69 = MACDPlot()
-        fig, ax = plt.subplots(figsize=(12, 6))
-        macd_plot69.plot(ax, df, date_field='drawTerm', close_field=ball_field69)
-        plt.show()
+        # 取得 df 前面45個元素丟入 plot rows 內
+        plot_rows = df.head(45).to_dict(orient='records')
+        end_rows = df.tail(5).to_dict(orient='records')
+        balls = []
+        for j in range(1, 81):
+            ball_field = str(j).zfill(2)
+            import matplotlib.pyplot as plt
+            macd = MACDPlot(plot_rows, date_field='drawTerm', close_field=ball_field)
+            macd.load()
+            if macd.isMACDBig:
+                balls.append(ball_field)
+        print(f"MACD big balls: {balls}")
+
+        # 新增：建立 dfExcel，第一欄為 bigShowOrders，第二欄為 balls
+        import pandas as pd
+        big_show_orders = []
+        for row in rows:
+            if 'bigShowOrders' in row:
+                big_show_orders.extend(row['bigShowOrders'])
+        # 對齊長度
+        max_len = max(len(big_show_orders), len(balls))
+        big_show_orders += [''] * (max_len - len(big_show_orders))
+        balls += [''] * (max_len - len(balls))
+        dfExcel = pd.DataFrame({
+            'bigShowOrders': big_show_orders,
+            'balls': balls
+        })
+        print(dfExcel)
+        # 若要輸出到 Excel，可加上：
+        dfExcel.to_excel(os.path.join(self._ExcelPath, f"balls_{i}.xlsx"), index=False)
+
+        # macd_plot69.plot(ball_field69)
         pass
 
 if __name__ == '__main__':

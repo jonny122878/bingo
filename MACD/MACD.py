@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List, Dict
-from IPlot import IPlot
-from db import MongoDbContext
+from MACD.IPlot import IPlot  # 修改為絕對匯入
+# from db import MongoDbContext
 
 # region example
 # # 假設有一個 DataFrame 包含日期和收盤價
@@ -93,35 +93,36 @@ class MACDPlot(IPlot):
         plt.legend()
         plt.title(f"MACD Plot ({self._close_field})")
         plt.legend()
-        # plt.tight_layout()
+        plt.tight_layout()
+        plt.show()
         pass
 
 
-# 主程式
-db = MongoDbContext("localhost", "bingo")
-table = "bingo_accum_times"
-queryKey = {}
+# # 主程式
+# db = MongoDbContext("localhost", "bingo")
+# table = "bingo_accum_times"
+# queryKey = {}
 
-querys = db.Find(table, queryKey).sort("DrawTerm", -1)
-results = list(querys)
-results = results[:30]
-resultAsc = sorted(results, key=lambda x: x["DrawTerm"])
-print("")
+# querys = db.Find(table, queryKey).sort("DrawTerm", -1)
+# results = list(querys)
+# results = results[:30]
+# resultAsc = sorted(results, key=lambda x: x["DrawTerm"])
+# print("")
 
 
-# ball_field = 'Ball' + str(i).zfill(2)
-ball_field69 = 'Ball69'
-ball_field70 = 'Ball70'
+# # ball_field = 'Ball' + str(i).zfill(2)
+# ball_field69 = 'Ball69'
+# ball_field70 = 'Ball70'
 
-macd_plot69 = MACDPlot(
-    result=resultAsc, date_field='DrawTerm', close_field=ball_field69)
-macd_plot69.load()
-macd_plot69.plot(name=ball_field69)
-macd_plot70 = MACDPlot(
-    result=resultAsc, date_field='DrawTerm', close_field=ball_field70)
-macd_plot70.load()
-macd_plot70.plot(name='Ball70')
-plt.show()
+# macd_plot69 = MACDPlot(
+#     result=resultAsc, date_field='DrawTerm', close_field=ball_field69)
+# macd_plot69.load()
+# macd_plot69.plot(name=ball_field69)
+# macd_plot70 = MACDPlot(
+#     result=resultAsc, date_field='DrawTerm', close_field=ball_field70)
+# macd_plot70.load()
+# macd_plot70.plot(name='Ball70')
+# plt.show()
 
 # ballFields = []
 # # 繪製第一個視窗的圖表
