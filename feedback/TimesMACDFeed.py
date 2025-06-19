@@ -67,12 +67,15 @@ class TimesMACDFeed:
         export_path = os.path.join(self._ExcelPath, f"export_{i}.xlsx")
         df.to_excel(export_path, index=False)
         print(f"Exported to {export_path}")
-        # ball_field69 = 'Ball69'
-        # import matplotlib.pyplot as plt
-        # macd_plot69 = MACDPlot()
-        # fig, ax = plt.subplots(figsize=(12, 6))
-        # macd_plot69.plot(ax, rows, date_field='drawTerm', close_field=ball_field69)
-        # plt.show()
+        # 取得 df 最後一列丟入 plot rows 內
+        last_row = df.iloc[-1].to_dict()
+        plot_rows = [last_row]
+        ball_field69 = '69'
+        import matplotlib.pyplot as plt
+        macd_plot69 = MACDPlot()
+        fig, ax = plt.subplots(figsize=(12, 6))
+        macd_plot69.plot(ax, df, date_field='drawTerm', close_field=ball_field69)
+        plt.show()
         pass
 
 if __name__ == '__main__':
