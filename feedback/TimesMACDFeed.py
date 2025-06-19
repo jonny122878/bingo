@@ -80,24 +80,29 @@ class TimesMACDFeed:
                 balls.append(ball_field)
         print(f"MACD big balls: {balls}")
 
-        # 新增：建立 dfExcel，第一欄為 bigShowOrders，第二欄為 balls
+        # dfExcel 來源為 rows
         import pandas as pd
-        big_show_orders = []
-        for row in rows:
-            if 'bigShowOrders' in row:
-                big_show_orders.extend(row['bigShowOrders'])
-        # 對齊長度
-        max_len = max(len(big_show_orders), len(balls))
-        big_show_orders += [''] * (max_len - len(big_show_orders))
-        balls += [''] * (max_len - len(balls))
-        dfExcel = pd.DataFrame({
-            'bigShowOrders': big_show_orders,
-            'balls': balls
-        })
+        dfExcel = pd.DataFrame(rows)
+        if 'bigShowOrder' in dfExcel.columns:
+            dfExcel = dfExcel.drop(columns=['bigShowOrder'])
+        # 增加 balls 欄位
+        dfExcel['balls'] = [balls] * len(dfExcel)
+        # 將 balls 欄位 drawTerm 前 45 列清空
+        if 'drawTerm' in dfExcel.columns:
+            dfExcel.loc[dfExcel.index[:45], 'balls'] = ''
+        # 增加 compare 欄位，取 bigShowOrders 與 balls 的交集
+        dfExcel['compare'] = dfExcel.apply(
+            lambda row: list(set(row['bigShowOrders']) & set(row['balls'])) if isinstance(row['bigShowOrders'], list) else [],
+            axis=1
+        )
+        # 增加 perenct 欄位，為 balls count / bigShowOrders count
+        dfExcel['perenct'] = dfExcel.apply(
+            lambda row: len(row['compare']) / len(row['bigShowOrders']) if isinstance(row['bigShowOrders'], list) and len(row['bigShowOrders']) > 0 else 0,
+            axis=1
+        )
         print(dfExcel)
         # 若要輸出到 Excel，可加上：
         dfExcel.to_excel(os.path.join(self._ExcelPath, f"balls_{i}.xlsx"), index=False)
-
         # macd_plot69.plot(ball_field69)
         pass
 
@@ -110,5 +115,5 @@ if __name__ == '__main__':
     feed_instance = TimesMACDFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'
     feed_instance.ExcelFile = 'MACD.xlsx'
-    feed_instance.feed(rows, randTimes=1)
+    feed_instance.feed(rows, randTimes=10)
     print('')
