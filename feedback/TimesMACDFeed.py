@@ -35,6 +35,8 @@ class TimesMACDFeed:
             randEnd = randStart + 50
             print(f"Random range: randStart={randStart}, randEnd={randEnd}")
             top_rows = rows[randStart:randEnd]
+            # 依 drawTerm 排序
+            top_rows = sorted(top_rows, key=lambda x: x.get('drawTerm'))
             for row in top_rows:
                 if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
                     row['bigShowOrders'] = row['bigShowOrder'].split(',')
@@ -55,12 +57,22 @@ class TimesMACDFeed:
         # 以 rows['bigShowOrders'] 轉為 list 作為 inputs
         inputs = list(row['bigShowOrders'] for row in rows if 'bigShowOrders' in row)
         algo.LoadData(inputs)
-        ball_field69 = 'Ball69'
-        import matplotlib.pyplot as plt
-        macd_plot69 = MACDPlot()
-        fig, ax = plt.subplots(figsize=(12, 6))
-        macd_plot69.plot(ax, rows, date_field='drawTerm', close_field=ball_field69)
-        plt.show()
+        # 建立一個 df 等於 algo.DfResult，最開頭插入一欄 drawTerm
+        df = algo.DfResult.copy()
+        if isinstance(rows, list) and len(rows) > 0 and 'drawTerm' in rows[0]:
+            draw_terms = [row['drawTerm'] for row in rows]
+            df.insert(0, 'drawTerm', draw_terms)
+        print(df)
+        # 匯出 df 到 Excel
+        export_path = os.path.join(self._ExcelPath, f"export_{i}.xlsx")
+        df.to_excel(export_path, index=False)
+        print(f"Exported to {export_path}")
+        # ball_field69 = 'Ball69'
+        # import matplotlib.pyplot as plt
+        # macd_plot69 = MACDPlot()
+        # fig, ax = plt.subplots(figsize=(12, 6))
+        # macd_plot69.plot(ax, rows, date_field='drawTerm', close_field=ball_field69)
+        # plt.show()
         pass
 
 if __name__ == '__main__':
@@ -72,5 +84,5 @@ if __name__ == '__main__':
     feed_instance = TimesMACDFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'
     feed_instance.ExcelFile = 'MACD.xlsx'
-    feed_instance.feed(rows, randTimes=5)
+    feed_instance.feed(rows, randTimes=1)
     print('')

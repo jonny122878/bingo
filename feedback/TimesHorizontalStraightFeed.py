@@ -33,6 +33,8 @@ class TimesHorizontalStraightFeed:
             randEnd = randStart + 50
             print(f"Random range: randStart={randStart}, randEnd={randEnd}")
             top_rows = rows[randStart:randEnd]
+            # 依 drawTerm 排序
+            top_rows = sorted(top_rows, key=lambda x: x.get('drawTerm'))
             # 將 bigShowOrder 拆分為陣列，新增欄位 bigShowOrders
             for row in top_rows:
                 if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
@@ -45,6 +47,7 @@ class TimesHorizontalStraightFeed:
 
     def calcu(self, top_rows, skip_variant_count=0, take=4, randStart=None):
         # 轉為 DataFrame 並匯出為 Excel，只包含 drawTerm 和 bigShowOrders
+        
         import pandas as pd
         df = pd.DataFrame(top_rows)
         df = df[['drawTerm', 'bigShowOrders']]
