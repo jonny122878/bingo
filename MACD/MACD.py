@@ -57,6 +57,11 @@ class MACDPlot(IPlot):
     def isMACDBig(self):
         return self._df['isMACDBig'].iloc[-1]
 
+    @property
+    def MACDOffset(self):
+        """回傳 Offset 欄位的 float 數值"""
+        return float(self._df['Offset'].iloc[-1])
+
     def __init__(self, result, date_field, close_field):
         self._date_field = date_field  # 初始化為 None
         self._close_field = close_field  # 初始化為 None
@@ -81,7 +86,8 @@ class MACDPlot(IPlot):
         self._df['MACD'] = self._df['EMA12'] - self._df['EMA26']
         self._df['Signal'] = self._df['MACD'].ewm(span=9, adjust=False).mean()
         self._df['isMACDBig'] = self._df['MACD'] > self._df['Signal']
-        print(self._df)
+        self._df['Offset'] = self._df['MACD'] - self._df['Signal']
+        # print(self._df)
 
     def plot(self, name):
         # 繪製圖表

@@ -76,7 +76,8 @@ class TimesMACDFeed:
             import matplotlib.pyplot as plt
             macd = MACDPlot(plot_rows, date_field='drawTerm', close_field=ball_field)
             macd.load()
-            if macd.isMACDBig:
+            if macd.isMACDBig and macd.MACDOffset > 0.1:
+                print(f"MACD offset {macd.MACDOffset}")
                 balls.append(ball_field)
         print(f"MACD big balls: {balls}")
 
@@ -115,5 +116,5 @@ if __name__ == '__main__':
     feed_instance = TimesMACDFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'
     feed_instance.ExcelFile = 'MACD.xlsx'
-    feed_instance.feed(rows, randTimes=1)
+    feed_instance.feed(rows, randTimes=10)
     print('')

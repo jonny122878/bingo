@@ -69,12 +69,39 @@ class TestLineChart(unittest.TestCase):
             group_stats.to_excel(writer, index=False, sheet_name='Sheet2')
         print(f"Excel file list exported to: {output_path}")
 
+    def Test_excel_ball_unit_plot(self):
+        """
+        遍歷 root_dir 下所有以 balls 開頭的 Excel 檔案，打開 Sheet1，將 E47-E51 的值收集成一個集合，計算其中位數。
+        """
+        import os
+        import pandas as pd
+        import numpy as np
+        root_dir = r"C:\Programs\test_data"
+        values = []
+        for dirpath, dirnames, filenames in os.walk(root_dir):
+            excel_files = [f for f in filenames if f.startswith('balls') and (f.endswith('.xlsx') or f.endswith('.xls'))]
+            for fname in excel_files:
+                excel_path = os.path.join(dirpath, fname)
+                try:
+                    df = pd.read_excel(excel_path, sheet_name='Sheet1', header=None)
+                    # E47-E51 -> row 46~50, col 4 (0-based)
+                    vals = df.iloc[46:51, 4].tolist()
+                    values.extend([v for v in vals if pd.notnull(v)])
+                except Exception as e:
+                    print(f"Error reading {excel_path}: {e}")
+        if values:
+            median = float(np.median(values))
+            print(f"E47-E51 median: {median}")
+        else:
+            print("No values found in E47-E51 range.")
+
 if __name__ == "__main__": 
     try:
         suite = unittest.TestSuite()
         # suite.addTest(TestLineChart('Test_plot'))
         # suite.addTest(TestLineChart('Test_rand_unit_plot'))
-        suite.addTest(TestLineChart('Test_excel_unit_plot'))
+        # suite.addTest(TestLineChart('Test_excel_unit_plot'))
+        suite.addTest(TestLineChart('Test_excel_ball_unit_plot'))
         runner = unittest.TextTestRunner(verbosity=2)
         runner.run(suite)
     except SystemExit:
