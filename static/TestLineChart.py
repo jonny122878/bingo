@@ -84,8 +84,8 @@ class TestLineChart(unittest.TestCase):
                 excel_path = os.path.join(dirpath, fname)
                 try:
                     df = pd.read_excel(excel_path, sheet_name='Sheet1', header=None)
-                    # E47-E51 -> row 46~50, col 4 (0-based)
-                    vals = df.iloc[46:51, 4].tolist()
+                    # E49-E51 -> row 48~50, col 4 (0-based)
+                    vals = df.iloc[48:51, 4].tolist()
                     values.extend([v for v in vals if pd.notnull(v)])
                 except Exception as e:
                     print(f"Error reading {excel_path}: {e}")

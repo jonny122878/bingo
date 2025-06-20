@@ -67,16 +67,16 @@ class TimesMACDFeed:
         export_path = os.path.join(self._ExcelPath, f"export_{i}.xlsx")
         df.to_excel(export_path, index=False)
         print(f"Exported to {export_path}")
-        # 取得 df 前面45個元素丟入 plot rows 內
-        plot_rows = df.head(45).to_dict(orient='records')
-        end_rows = df.tail(5).to_dict(orient='records')
+        # 取得 df 前面47個元素丟入 plot rows 內
+        plot_rows = df.head(47).to_dict(orient='records')
+        end_rows = df.tail(3).to_dict(orient='records')
         balls = []
         for j in range(1, 81):
             ball_field = str(j).zfill(2)
             import matplotlib.pyplot as plt
             macd = MACDPlot(plot_rows, date_field='drawTerm', close_field=ball_field)
             macd.load()
-            if macd.isMACDBig and macd.MACDOffset > 0.1:
+            if macd.isMACDBig and macd.MACDOffset > 0.2:
                 print(f"MACD offset {macd.MACDOffset}")
                 balls.append(ball_field)
         print(f"MACD big balls: {balls}")
@@ -90,7 +90,7 @@ class TimesMACDFeed:
         dfExcel['balls'] = [balls] * len(dfExcel)
         # 將 balls 欄位 drawTerm 前 45 列清空
         if 'drawTerm' in dfExcel.columns:
-            dfExcel.loc[dfExcel.index[:45], 'balls'] = ''
+            dfExcel.loc[dfExcel.index[:47], 'balls'] = ''
         # 增加 compare 欄位，取 bigShowOrders 與 balls 的交集
         dfExcel['compare'] = dfExcel.apply(
             lambda row: list(set(row['bigShowOrders']) & set(row['balls'])) if isinstance(row['bigShowOrders'], list) else [],
