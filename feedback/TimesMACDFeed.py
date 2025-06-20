@@ -34,9 +34,9 @@ class TimesMACDFeed:
             randStart = random.randint(1, 493)
             randEnd = randStart + 50
             print(f"Random range: randStart={randStart}, randEnd={randEnd}")
+            rows = sorted(rows, key=lambda x: x.get('drawTerm'))
             top_rows = rows[randStart:randEnd]
             # 依 drawTerm 排序
-            top_rows = sorted(top_rows, key=lambda x: x.get('drawTerm'))
             for row in top_rows:
                 if 'bigShowOrder' in row and isinstance(row['bigShowOrder'], str):
                     row['bigShowOrders'] = row['bigShowOrder'].split(',')
@@ -97,7 +97,7 @@ class TimesMACDFeed:
         )
         # 增加 perenct 欄位，為 balls count / bigShowOrders count
         dfExcel['perenct'] = dfExcel.apply(
-            lambda row: len(row['compare']) / len(row['bigShowOrders']) if isinstance(row['bigShowOrders'], list) and len(row['bigShowOrders']) > 0 else 0,
+            lambda row: len(row['compare']) / len(row['balls']) if isinstance(row['balls'], list) and len(row['balls']) > 0 else 0,
             axis=1
         )
         print(dfExcel)
@@ -115,5 +115,5 @@ if __name__ == '__main__':
     feed_instance = TimesMACDFeed()
     feed_instance.ExcelPath = r'C:\Programs\test_data'
     feed_instance.ExcelFile = 'MACD.xlsx'
-    feed_instance.feed(rows, randTimes=10)
+    feed_instance.feed(rows, randTimes=1)
     print('')
