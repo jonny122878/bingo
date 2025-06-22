@@ -1234,3 +1234,870 @@
  'scheduler/enqueued/memory': 1,
  'start_time': datetime.datetime(2025, 6, 22, 4, 36, 43, 796705, tzinfo=datetime.timezone.utc)}
 2025-06-22 12:36:48 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 12:41:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 12:41:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 12:41:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 12:41:42 [scrapy.extensions.telnet] INFO: Telnet Password: 182ba556f000ba6d
+2025-06-22 12:41:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 12:41:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 12:41:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 12:41:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 12:41:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 12:41:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 12:41:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 12:41:42 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 12:41:43 [root] INFO: Table dropped.
+2025-06-22 12:41:43 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 12:41:43 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 12:41:43 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 12:41:43 [root] INFO: Database connection established and table checked/created.
+2025-06-22 12:41:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 12:41:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 12:41:43 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 12:41:43 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 12:41:43 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 12:41:44 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=7&pageSize=10
+2025-06-22 12:41:47 [root] INFO: Item processed and committed to database.
+2025-06-22 12:41:47 [root] INFO: Database connection closed after processing item.
+2025-06-22 12:41:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 12:41:47 [root] INFO: Database connection closed.
+2025-06-22 12:41:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1122,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 3.928974,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 4, 41, 47, 199253, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1900,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 4, 41, 43, 270279, tzinfo=datetime.timezone.utc)}
+2025-06-22 12:41:47 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 12:46:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 12:46:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 12:46:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 12:46:42 [scrapy.extensions.telnet] INFO: Telnet Password: 2ae5dacbcadae310
+2025-06-22 12:46:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 12:46:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 12:46:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 12:46:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 12:46:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 12:46:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 12:46:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 12:46:43 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 12:46:43 [root] INFO: Table dropped.
+2025-06-22 12:46:43 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 12:46:43 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 12:46:43 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 12:46:43 [root] INFO: Database connection established and table checked/created.
+2025-06-22 12:46:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 12:46:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 12:46:43 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 12:46:43 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 12:46:43 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 12:46:44 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=7&pageSize=10
+2025-06-22 12:46:47 [root] INFO: Item processed and committed to database.
+2025-06-22 12:46:47 [root] INFO: Database connection closed after processing item.
+2025-06-22 12:46:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 12:46:47 [root] INFO: Database connection closed.
+2025-06-22 12:46:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1127,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 4.032915,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 4, 46, 47, 506828, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1894,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 4, 46, 43, 473913, tzinfo=datetime.timezone.utc)}
+2025-06-22 12:46:47 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 12:51:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 12:51:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 12:51:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 12:51:42 [scrapy.extensions.telnet] INFO: Telnet Password: 9c6fcc43e240b444
+2025-06-22 12:51:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 12:51:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 12:51:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 12:51:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 12:51:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 12:51:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 12:51:43 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 12:51:43 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 12:51:43 [root] INFO: Table dropped.
+2025-06-22 12:51:43 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 12:51:43 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 12:51:43 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 12:51:43 [root] INFO: Database connection established and table checked/created.
+2025-06-22 12:51:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 12:51:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 12:51:43 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 12:51:43 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 12:51:43 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 12:51:44 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 12:51:47 [root] INFO: Item processed and committed to database.
+2025-06-22 12:51:47 [root] INFO: Database connection closed after processing item.
+2025-06-22 12:51:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 12:51:47 [root] INFO: Database connection closed.
+2025-06-22 12:51:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1111,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 4.058015,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 4, 51, 47, 578885, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1895,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 4, 51, 43, 520870, tzinfo=datetime.timezone.utc)}
+2025-06-22 12:51:47 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 12:56:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 12:56:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 12:56:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 12:56:42 [scrapy.extensions.telnet] INFO: Telnet Password: e088f07157c7a668
+2025-06-22 12:56:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 12:56:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 12:56:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 12:56:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 12:56:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 12:56:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 12:56:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 12:56:54 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 12:56:54 [root] INFO: Table dropped.
+2025-06-22 12:56:54 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 12:56:54 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 12:56:54 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 12:56:55 [root] INFO: Database connection established and table checked/created.
+2025-06-22 12:56:55 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 12:56:55 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 12:56:55 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 12:56:55 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 12:57:02 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 12:57:05 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 12:57:08 [root] INFO: Item processed and committed to database.
+2025-06-22 12:57:08 [root] INFO: Database connection closed after processing item.
+2025-06-22 12:57:08 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 12:57:08 [root] INFO: Database connection closed.
+2025-06-22 12:57:08 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1131,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 13.657306,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 4, 57, 8, 846678, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1897,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 4, 56, 55, 189372, tzinfo=datetime.timezone.utc)}
+2025-06-22 12:57:08 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 13:01:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 13:01:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 13:01:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 13:01:42 [scrapy.extensions.telnet] INFO: Telnet Password: 2f36c5825ebac9b3
+2025-06-22 13:01:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 13:01:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 13:01:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 13:01:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 13:01:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 13:01:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 13:01:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 13:01:43 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 13:01:43 [root] INFO: Table dropped.
+2025-06-22 13:01:43 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 13:01:43 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 13:01:44 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 13:01:44 [root] INFO: Database connection established and table checked/created.
+2025-06-22 13:01:44 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 13:01:44 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 13:01:44 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 13:01:44 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 13:01:45 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 13:01:45 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 13:01:48 [root] INFO: Item processed and committed to database.
+2025-06-22 13:01:48 [root] INFO: Database connection closed after processing item.
+2025-06-22 13:01:48 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 13:01:48 [root] INFO: Database connection closed.
+2025-06-22 13:01:48 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1134,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 3.486068,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 5, 1, 48, 286845, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1897,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 5, 1, 44, 800777, tzinfo=datetime.timezone.utc)}
+2025-06-22 13:01:48 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 13:06:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 13:06:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 13:06:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 13:06:42 [scrapy.extensions.telnet] INFO: Telnet Password: 5c8ba9ae7fb93ce7
+2025-06-22 13:06:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 13:06:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 13:06:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 13:06:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 13:06:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 13:06:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 13:06:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 13:06:43 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 13:06:43 [root] INFO: Table dropped.
+2025-06-22 13:06:43 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 13:06:43 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 13:06:43 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 13:06:43 [root] INFO: Database connection established and table checked/created.
+2025-06-22 13:06:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 13:06:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 13:06:43 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 13:06:43 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 13:06:43 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 13:06:44 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 13:06:47 [root] INFO: Item processed and committed to database.
+2025-06-22 13:06:47 [root] INFO: Database connection closed after processing item.
+2025-06-22 13:06:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 13:06:47 [root] INFO: Database connection closed.
+2025-06-22 13:06:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1130,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 3.893328,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 5, 6, 47, 322100, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1903,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 5, 6, 43, 428772, tzinfo=datetime.timezone.utc)}
+2025-06-22 13:06:47 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 13:11:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 13:11:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 13:11:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 13:11:42 [scrapy.extensions.telnet] INFO: Telnet Password: 62693898e13c73d8
+2025-06-22 13:11:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 13:11:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 13:11:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 13:11:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 13:11:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 13:11:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 13:11:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 13:11:44 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 13:11:44 [root] INFO: Table dropped.
+2025-06-22 13:11:44 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 13:11:44 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 13:11:45 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 13:11:45 [root] INFO: Database connection established and table checked/created.
+2025-06-22 13:11:45 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 13:11:45 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 13:11:45 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 13:11:45 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 13:11:47 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 13:11:51 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 13:11:55 [root] INFO: Item processed and committed to database.
+2025-06-22 13:11:55 [root] INFO: Database connection closed after processing item.
+2025-06-22 13:11:55 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 13:11:55 [root] INFO: Database connection closed.
+2025-06-22 13:11:55 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1121,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 9.953677,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 5, 11, 55, 276853, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1903,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 5, 11, 45, 323176, tzinfo=datetime.timezone.utc)}
+2025-06-22 13:11:55 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 13:16:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 13:16:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 13:16:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 13:16:42 [scrapy.extensions.telnet] INFO: Telnet Password: ec30ba1f7e8135fb
+2025-06-22 13:16:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 13:16:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 13:16:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 13:16:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 13:16:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 13:16:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 13:16:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 13:16:42 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 13:16:42 [root] INFO: Table dropped.
+2025-06-22 13:16:42 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 13:16:42 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 13:16:43 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 13:16:43 [root] INFO: Database connection established and table checked/created.
+2025-06-22 13:16:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 13:16:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 13:16:43 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 13:16:43 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 13:16:43 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 13:16:44 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 13:16:47 [root] INFO: Item processed and committed to database.
+2025-06-22 13:16:47 [root] INFO: Database connection closed after processing item.
+2025-06-22 13:16:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 13:16:47 [root] INFO: Database connection closed.
+2025-06-22 13:16:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1124,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 4.1171,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 5, 16, 47, 266086, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1898,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 5, 16, 43, 148986, tzinfo=datetime.timezone.utc)}
+2025-06-22 13:16:47 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 13:21:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 13:21:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 13:21:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 13:21:42 [scrapy.extensions.telnet] INFO: Telnet Password: ad0bd1f956f93d26
+2025-06-22 13:21:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 13:21:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 13:21:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 13:21:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 13:21:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 13:21:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 13:21:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 13:21:43 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 13:21:43 [root] INFO: Table dropped.
+2025-06-22 13:21:43 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 13:21:43 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 13:21:43 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 13:21:43 [root] INFO: Database connection established and table checked/created.
+2025-06-22 13:21:43 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 13:21:43 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 13:21:43 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 13:21:43 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 13:21:43 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 13:21:44 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 13:21:47 [root] INFO: Item processed and committed to database.
+2025-06-22 13:21:47 [root] INFO: Database connection closed after processing item.
+2025-06-22 13:21:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 13:21:47 [root] INFO: Database connection closed.
+2025-06-22 13:21:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1130,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 4.457981,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 5, 21, 47, 782627, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1894,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 5, 21, 43, 324646, tzinfo=datetime.timezone.utc)}
+2025-06-22 13:21:47 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 13:26:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 13:26:46 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 13:26:46 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 13:26:46 [scrapy.extensions.telnet] INFO: Telnet Password: a9cf2d0ae8639650
+2025-06-22 13:26:46 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 13:26:46 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 13:26:46 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 13:26:46 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 13:26:46 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 13:26:46 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 13:26:46 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 13:26:47 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 13:26:47 [root] INFO: Table dropped.
+2025-06-22 13:26:47 [root] INFO: Checking if table dbo.bingo exists.
+2025-06-22 13:26:47 [root] INFO: Table dbo.bingo does not exist. Creating table.
+2025-06-22 13:26:47 [root] INFO: Table dbo.bingo created successfully.
+2025-06-22 13:26:47 [root] INFO: Database connection established and table checked/created.
+2025-06-22 13:26:47 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2025-06-22 13:26:47 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2025-06-22 13:26:47 [root] INFO: Using CRAWL_DATE: ['2025-06-22']
+2025-06-22 13:26:47 [root] INFO: 爬取日期: 2025-06-22
+2025-06-22 13:26:47 [root] INFO: Processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=1&pageSize=1
+2025-06-22 13:26:48 [root] INFO: Finished processing page: https://api.taiwanlottery.com/TLCAPIWeB/Lottery/BingoResult?openDate=2025-06-22&pageNum=8&pageSize=10
+2025-06-22 13:26:51 [root] INFO: Item processed and committed to database.
+2025-06-22 13:26:51 [root] INFO: Database connection closed after processing item.
+2025-06-22 13:26:51 [scrapy.core.engine] INFO: Closing spider (finished)
+2025-06-22 13:26:51 [root] INFO: Database connection closed.
+2025-06-22 13:26:51 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 292,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1129,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'elapsed_time_seconds': 4.061721,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2025, 6, 22, 5, 26, 51, 348183, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1894,
+ 'httpcompression/response_count': 1,
+ 'item_scraped_count': 1,
+ 'items_per_minute': None,
+ 'log_count/INFO': 24,
+ 'response_received_count': 1,
+ 'responses_per_minute': None,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2025, 6, 22, 5, 26, 47, 286462, tzinfo=datetime.timezone.utc)}
+2025-06-22 13:26:51 [scrapy.core.engine] INFO: Spider closed (finished)
+2025-06-22 15:21:42 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: bingo_scrapy)
+2025-06-22 15:21:42 [scrapy.utils.log] INFO: Versions: lxml 5.3.1.0, libxml2 2.11.7, cssselect 1.3.0, parsel 1.10.0, w3lib 2.3.1, Twisted 24.11.0, Python 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)], pyOpenSSL 25.0.0 (OpenSSL 3.4.1 11 Feb 2025), cryptography 44.0.2, Platform Windows-10-10.0.26100-SP0
+2025-06-22 15:21:42 [scrapy.addons] INFO: Enabled addons:
+[]
+2025-06-22 15:21:42 [scrapy.extensions.telnet] INFO: Telnet Password: 05c5d3986f01358e
+2025-06-22 15:21:42 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2025-06-22 15:21:42 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'bingo_scrapy',
+ 'LOG_FILE': 'bingo_spider.log',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'bingo_scrapy.spiders',
+ 'SPIDER_MODULES': ['bingo_scrapy.spiders']}
+2025-06-22 15:21:42 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2025-06-22 15:21:42 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2025-06-22 15:21:42 [scrapy.middleware] INFO: Enabled item pipelines:
+['bingo_scrapy.pipelines.CsvPipeline', 'bingo_scrapy.pipelines.DbPipeline']
+2025-06-22 15:21:42 [scrapy.core.engine] INFO: Spider opened
+2025-06-22 15:21:42 [root] INFO: Opening spider and establishing database connection.
+2025-06-22 15:21:42 [root] ERROR: Error connecting to database: (20009, b'DB-Lib error message 20009, severity 9:\nUnable to connect: Adaptive Server is unavailable or does not exist (wpdb2.hihosting.hinet.net)\n')
+2025-06-22 15:21:42 [root] INFO: DELETE_OLD_DATA: True
+2025-06-22 15:21:42 [scrapy.core.engine] INFO: Closing spider (shutdown)
+2025-06-22 15:21:42 [scrapy.core.engine] ERROR: Scraper close failure
+Traceback (most recent call last):
+  File "scrapy\crawler.py", line 154, in crawl
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\engine.py", line 395, in open_spider
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\scraper.py", line 112, in open_spider
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 58, in open_spider
+    self.cursor.execute(f'DROP TABLE IF EXISTS {self.schema}.{self.table}')
+    ^^^^^^^^^^^
+AttributeError: 'DbPipeline' object has no attribute 'cursor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 82, in close_spider
+    self.conn.close()
+    ^^^^^^^^^
+AttributeError: 'DbPipeline' object has no attribute 'conn'
+2025-06-22 15:21:42 [scrapy.utils.signal] ERROR: Error caught on signal handler: <bound method CoreStats.spider_closed of <scrapy.extensions.corestats.CoreStats object at 0x000001BB535A0850>>
+Traceback (most recent call last):
+  File "scrapy\crawler.py", line 154, in crawl
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\engine.py", line 395, in open_spider
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\scraper.py", line 112, in open_spider
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 58, in open_spider
+    self.cursor.execute(f'DROP TABLE IF EXISTS {self.schema}.{self.table}')
+    ^^^^^^^^^^^
+AttributeError: 'DbPipeline' object has no attribute 'cursor'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "scrapy\utils\defer.py", line 400, in maybeDeferred_coro
+  File "pydispatch\robustapply.py", line 55, in robustApply
+  File "scrapy\extensions\corestats.py", line 41, in spider_closed
+AssertionError
+2025-06-22 15:21:42 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'items_per_minute': None,
+ 'log_count/ERROR': 3,
+ 'log_count/INFO': 10,
+ 'responses_per_minute': None}
+2025-06-22 15:21:42 [scrapy.core.engine] INFO: Spider closed (shutdown)
+2025-06-22 15:21:42 [twisted] CRITICAL: Unhandled error in Deferred:
+2025-06-22 15:21:42 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "twisted\internet\defer.py", line 2017, in _inlineCallbacks
+  File "scrapy\crawler.py", line 154, in crawl
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\engine.py", line 395, in open_spider
+  File "twisted\internet\defer.py", line 2013, in _inlineCallbacks
+  File "twisted\python\failure.py", line 467, in throwExceptionIntoGenerator
+  File "scrapy\core\scraper.py", line 112, in open_spider
+  File "twisted\internet\defer.py", line 1088, in _runCallbacks
+  File "C:\Programs\bingo\home\bingo_scrapy\bingo_scrapy\bingo_scrapy\pipelines.py", line 58, in open_spider
+    self.cursor.execute(f'DROP TABLE IF EXISTS {self.schema}.{self.table}')
+    ^^^^^^^^^^^
+AttributeError: 'DbPipeline' object has no attribute 'cursor'

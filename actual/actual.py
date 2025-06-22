@@ -67,7 +67,7 @@ if __name__ == '__main__':
     else:
         next_draw_term = 1
     # 新增一列
-    new_row = {"drawTerm": next_draw_term, "actual": ",".join(balls)}
+    new_row = {"drawTerm": next_draw_term,"bigShowOrder":[], "balls": ",".join(balls)}
     new_df = pd.DataFrame([new_row])
 
     if _os.path.exists(actual_path):
