@@ -100,8 +100,8 @@ if __name__ == "__main__":
         suite = unittest.TestSuite()
         # suite.addTest(TestLineChart('Test_plot'))
         # suite.addTest(TestLineChart('Test_rand_unit_plot'))
-        # suite.addTest(TestLineChart('Test_excel_unit_plot'))
-        suite.addTest(TestLineChart('Test_excel_ball_unit_plot'))
+        suite.addTest(TestLineChart('Test_excel_unit_plot'))
+        # suite.addTest(TestLineChart('Test_excel_ball_unit_plot'))
         runner = unittest.TextTestRunner(verbosity=2)
         runner.run(suite)
     except SystemExit:
