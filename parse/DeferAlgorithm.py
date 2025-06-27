@@ -1,6 +1,7 @@
 from typing import List
 from pandas import DataFrame
 import pandas as pd
+import numpy as np
 
 class DeferAlgorithm:
     """計算拖期"""
@@ -58,10 +59,14 @@ class DeferAlgorithm:
                     dictBall[key] = 0
                 else:
                     dictBall[key] += 1
-            ball2Ds.append(list(dictBall.values()))
+            row_values = list(dictBall.values())
+            # 新增：計算離散分布（標準差）
+            std_value = float(np.std(row_values))
+            row_values.append(std_value)
+            ball2Ds.append(row_values)
 
-        # 3. 實體化 self._DfResult，data=ball2Ds，columns=dictBall 的 keys
-        self._DfResult = DataFrame(data=ball2Ds, columns=list(dictBall.keys()))
+        # 3. 實體化 self._DfResult，data=ball2Ds，columns=dictBall 的 keys + ["std"]
+        self._DfResult = DataFrame(data=ball2Ds, columns=list(dictBall.keys()) + ["std"])
         # --- 新增邏輯 ---
         # 將 self._DfExport 複製自 self._DfResult
         self._DfExport = self._DfResult.copy()
