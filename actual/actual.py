@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+import datetime
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -29,7 +30,8 @@ if __name__ == '__main__':
     fileExten = os.path.splitext(os.path.basename(excel_file))[1]
     print(fileNameNoExten)
     print(fileExten)
-    takeColumns = ["79", "80"]
+    # takeColumns 設定為 1~80 共 80 個元素
+    takeColumns = [str(i) for i in range(1, 81)]
     algo.TakeColumns = takeColumns
     # 以 rows['bigShowOrders'] 轉為 list 作為 inputs
     inputs = list(row['bigShowOrders'] for row in rows if 'bigShowOrders' in row)
@@ -92,24 +94,75 @@ if __name__ == '__main__':
     new_row = {"drawTerm": next_draw_term,"bigShowOrder":[], "balls": balls}
     new_df = pd.DataFrame([new_row])
 
+    # 新增：DeferAlgorithm 實體化並處理
+    from parse.DeferAlgorithm import DeferAlgorithm
+    defer_algo = DeferAlgorithm()
+    defer_algo.TakeColumns = takeColumns
+    defer_algo.LoadData(inputs)
+    df_defer = defer_algo.DfResult
+    # 只取最後一列
+    df_defer_last = df_defer.tail(1)
+
+    # 新增：ContinAlgorithm 實體化並處理
+    from parse.ContinAlgorithm import ContinAlgorithm
+    contin_algo = ContinAlgorithm()
+    contin_algo.TakeColumns = takeColumns
+    contin_algo.LoadData(inputs)
+    df_contin = contin_algo.DfResult
+    # 只取最後一列
+    df_contin_last = df_contin.tail(1)
+
+    # 新增：TimesAlgorithm 實體化並處理
+    times_algo = TimesAlgorithm()
+    times_algo.TakeColumns = takeColumns
+    times_algo.LoadData(inputs)
+    df_times = times_algo.DfResult
+    # 只取最後一列
+    df_times_last = df_times.tail(1)
+
     if _os.path.exists(actual_path):
         # 檔案存在，附加寫入
         with pd.ExcelWriter(actual_path, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
-            # 取得現有資料行數
             book = writer.book
             if "Sheet1" in book.sheetnames:
                 sheet = book["Sheet1"]
                 startrow = sheet.max_row
             else:
                 startrow = 0
-            new_df.to_excel(writer, sheet_name="Sheet1", index=False, header=False, startrow=startrow)
-            # Sheet2 也用附加方式
+            # 只有在第一列時才寫 header
+            new_df.to_excel(writer, sheet_name="Sheet1", index=False, header=(startrow==0), startrow=startrow)
+            # Sheet2 也用附加方式，且標題固定
             if "Sheet2" in book.sheetnames:
                 sheet2 = book["Sheet2"]
                 startrow2 = sheet2.max_row
+                macd_stats_df.to_excel(writer, sheet_name='Sheet2', index=False, header=(startrow2==0), startrow=startrow2)
             else:
                 startrow2 = 0
-            macd_stats_df.to_excel(writer, sheet_name='Sheet2', index=False, header=False, startrow=startrow2)
+                macd_stats_df.to_excel(writer, sheet_name='Sheet2', index=False, header=True, startrow=startrow2)
+            # Sheet3 也用附加方式，且標題固定，改名為 Defer
+            if "Defer" in book.sheetnames:
+                sheet3 = book["Defer"]
+                startrow3 = sheet3.max_row
+                df_defer_last.to_excel(writer, sheet_name='Defer', index=False, header=(startrow3==0), startrow=startrow3)
+            else:
+                startrow3 = 0
+                df_defer_last.to_excel(writer, sheet_name='Defer', index=False, header=True, startrow=startrow3)
+            # Sheet4 也用附加方式，且標題固定，改名為 Contin
+            if "Contin" in book.sheetnames:
+                sheet4 = book["Contin"]
+                startrow4 = sheet4.max_row
+                df_contin_last.to_excel(writer, sheet_name='Contin', index=False, header=(startrow4==0), startrow=startrow4)
+            else:
+                startrow4 = 0
+                df_contin_last.to_excel(writer, sheet_name='Contin', index=False, header=True, startrow=startrow4)
+            # Sheet5 也用附加方式，且標題固定，改名為 Times
+            if "Times" in book.sheetnames:
+                sheet5 = book["Times"]
+                startrow5 = sheet5.max_row
+                df_times_last.to_excel(writer, sheet_name='Times', index=False, header=(startrow5==0), startrow=startrow5)
+            else:
+                startrow5 = 0
+                df_times_last.to_excel(writer, sheet_name='Times', index=False, header=True, startrow=startrow5)
         # 自適應欄寬
         wb = load_workbook(actual_path)
         for sheet_name in wb.sheetnames:
@@ -125,15 +178,22 @@ if __name__ == '__main__':
                         pass
                 ws.column_dimensions[col_letter].width = max_length + 2
         wb.save(actual_path)
-        # 直接複製 actual.xlsx 為 actual_view.xlsx
-        actual_view_path = os.path.join(_ExcelPath, "actual_view.xlsx")
+        # 直接複製 actual.xlsx 為 actual__HHmmss.xlsx
+        now_str = datetime.datetime.now().strftime("%H%M%S")
+        actual_view_path = os.path.join(_ExcelPath, f"actual__{now_str}.xlsx")
         shutil.copyfile(actual_path, actual_view_path)
     else:
         # 檔案不存在，建立新檔案
         with pd.ExcelWriter(actual_path, engine='openpyxl', mode='w') as writer:
-            new_df.to_excel(writer, sheet_name="Sheet1", index=False)
+            new_df.to_excel(writer, sheet_name="Sheet1", index=False, header=True)
             # 新增：輸出 MACD 統計到 Sheet2
-            macd_stats_df.to_excel(writer, sheet_name='Sheet2', index=False)
+            macd_stats_df.to_excel(writer, sheet_name='Sheet2', index=False, header=True)
+            # Sheet3 輸出 DeferAlgorithm 結果（只取最後一列）
+            df_defer_last.to_excel(writer, sheet_name='Defer', index=False, header=True)
+            # Sheet4 輸出 ContinAlgorithm 結果（只取最後一列）
+            df_contin_last.to_excel(writer, sheet_name='Contin', index=False, header=True)
+            # Sheet5 輸出 TimesAlgorithm 結果（只取最後一列）
+            df_times_last.to_excel(writer, sheet_name='Times', index=False, header=True)
         # 自適應欄寬
         wb = load_workbook(actual_path)
         for sheet_name in wb.sheetnames:
@@ -149,7 +209,8 @@ if __name__ == '__main__':
                         pass
                 ws.column_dimensions[col_letter].width = max_length + 2
         wb.save(actual_path)
-        # 直接複製 actual.xlsx 為 actual_view.xlsx
-        actual_view_path = os.path.join(_ExcelPath, "actual_view.xlsx")
+        # 直接複製 actual.xlsx 為 actual__HHmmss.xlsx
+        now_str = datetime.datetime.now().strftime("%H%M%S")
+        actual_view_path = os.path.join(_ExcelPath, f"actual__{now_str}.xlsx")
         shutil.copyfile(actual_path, actual_view_path)
 

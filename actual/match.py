@@ -1,5 +1,6 @@
 import sys
 import os
+import datetime
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -71,8 +72,20 @@ if __name__ == '__main__':
     df = df[output_columns]
     # 回寫到 actual.xlsx Sheet1，若 DataFrame 不為空才寫入
     if not df.empty:
-        with pd.ExcelWriter(actual_path, engine='openpyxl', mode='w') as writer:
-            df.to_excel(writer, sheet_name="Sheet1", index=False)
+        # 只覆蓋 Sheet1，保留 Sheet2、Sheet3
+        from openpyxl import load_workbook
+        import shutil
+        with pd.ExcelWriter(actual_path, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
+            book = writer.book
+            if "Sheet1" in book.sheetnames:
+                # 清空 Sheet1 內容
+                ws = book["Sheet1"]
+                ws.delete_rows(1, ws.max_row)
+            df.to_excel(writer, sheet_name="Sheet1", index=False, header=True)
+        # 直接複製 actual.xlsx 為 actual__HHmmss.xlsx
+        now_str = datetime.datetime.now().strftime("%H%M%S")
+        actual_view_path = os.path.join(_ExcelPath, f"actual__{now_str}.xlsx")
+        shutil.copyfile(actual_path, actual_view_path)
     else:
         print("DataFrame 為空，不進行寫入。")
 
