@@ -1,0 +1,22 @@
+# Python cache and build artifacts
+*.pyc
+__pycache__/
+
+# Executables
+*.exe
+*.csv
+*.env
+
+# PyInstaller build files
+*.spec
+*.pkg
+*.toc
+
+# Build folders
+dist/
+build/
+
+# 其他常見暫存檔案
+*.log
+*.tmp
+*.bak
