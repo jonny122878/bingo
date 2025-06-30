@@ -84,16 +84,38 @@ if __name__ == '__main__':
         row['bigPercent'] = actual_map_bigPercent.get(key, 0)
         row['smallPercent'] = actual_map_smallPercent.get(key, 0)
 
+    # 以 balls 欄位計算 smallPercent、bigPercent、bigSmallSort
+    for row in rows:
+        balls = row.get('balls', [])
+        small_count = sum(1 for b in balls if 1 <= int(b) <= 40)
+        big_count = sum(1 for b in balls if 41 <= int(b) <= 80)
+        total = len(balls)
+        showSmallPercent = small_count / total if total > 0 else 0
+        showBigPercent = big_count / total if total > 0 else 0
+        if total > 0:
+            if showBigPercent >= 0.54:
+                showBigSmallSort = "小"
+            elif showSmallPercent >= 0.54:
+                showBigSmallSort = "大"
+            else:
+                showBigSmallSort = "合"
+        else:
+            showBigSmallSort = ""
+        row['smallPercent'] = showSmallPercent
+        row['bigPercent'] = showBigPercent
+        row['bigSmallSort'] = showBigSmallSort
+
     # 增加 compare 欄位
     for row in rows:
         showBigSmallSort = row.get('showBigSmallSort', '')
         bigSmallSort = row.get('bigSmallSort', '')
-        if showBigSmallSort == '合':
+        if bigSmallSort == '合':
             row['compare'] = 0
-        elif showBigSmallSort == bigSmallSort:
+        elif showBigSmallSort != '合' and bigSmallSort != '合':
             row['compare'] = 175
         else:
-            row['compare'] = -25
+            row['compare'] = -50
+
 
     # 若需輸出 DataFrame
     df = pd.DataFrame(rows)
