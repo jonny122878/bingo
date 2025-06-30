@@ -42,12 +42,58 @@ if __name__ == '__main__':
         row['balls'] = balls_str if balls_str else []
 
     # 新增 compare 與 percent 欄位
+    # for row in rows:
+    #     balls = set(row['balls'])
+    #     bigs = set(row['bigShowOrders'])
+    #     compare = list(balls & bigs)
+    #     row['compare'] = compare
+    #     row['percent'] = round(len(compare) / len(balls), 2) if balls else 0.0
+
+    # 增加 showBigSmallSort、showBigPercent、showSmallPercent、bigSmallSort、bigPercent、smallPercent 欄位
     for row in rows:
-        balls = set(row['balls'])
-        bigs = set(row['bigShowOrders'])
-        compare = list(balls & bigs)
-        row['compare'] = compare
-        row['percent'] = round(len(compare) / len(balls), 2) if balls else 0.0
+        bigShowOrders = row['bigShowOrders']
+        small_count = sum(1 for b in bigShowOrders if 1 <= int(b) <= 40)
+        big_count = sum(1 for b in bigShowOrders if 41 <= int(b) <= 80)
+        total = len(bigShowOrders)
+        showSmallPercent = small_count / total if total > 0 else 0
+        showBigPercent = big_count / total if total > 0 else 0
+        if total > 0:
+            if showBigPercent >= 0.65:
+                showBigSmallSort = "大"
+            elif showSmallPercent >= 0.65:
+                showBigSmallSort = "小"
+            else:
+                showBigSmallSort = "合"
+        else:
+            showBigSmallSort = ""
+        row['showBigSmallSort'] = showBigSmallSort
+        row['showBigPercent'] = showBigPercent
+        row['showSmallPercent'] = showSmallPercent
+        # 保留 bigSmallSort、bigPercent、smallPercent
+        row['bigSmallSort'] = showBigSmallSort
+        row['bigPercent'] = showBigPercent
+        row['smallPercent'] = showSmallPercent
+
+    # 從 actual_df 取得 bigSmallSort、bigPercent、smallPercent
+    actual_map_bigSmallSort = {str(row['drawTerm']): row['bigSmallSort'] if 'bigSmallSort' in row and not pd.isna(row['bigSmallSort']) else '' for _, row in actual_df.iterrows()}
+    actual_map_bigPercent = {str(row['drawTerm']): row['bigPercent'] if 'bigPercent' in row and not pd.isna(row['bigPercent']) else 0 for _, row in actual_df.iterrows()}
+    actual_map_smallPercent = {str(row['drawTerm']): row['smallPercent'] if 'smallPercent' in row and not pd.isna(row['smallPercent']) else 0 for _, row in actual_df.iterrows()}
+    for row in rows:
+        key = str(row['drawTerm'])
+        row['bigSmallSort'] = actual_map_bigSmallSort.get(key, '')
+        row['bigPercent'] = actual_map_bigPercent.get(key, 0)
+        row['smallPercent'] = actual_map_smallPercent.get(key, 0)
+
+    # 增加 compare 欄位
+    for row in rows:
+        showBigSmallSort = row.get('showBigSmallSort', '')
+        bigSmallSort = row.get('bigSmallSort', '')
+        if showBigSmallSort == '合':
+            row['compare'] = 0
+        elif showBigSmallSort == bigSmallSort:
+            row['compare'] = 175
+        else:
+            row['compare'] = -25
 
     # 若需輸出 DataFrame
     df = pd.DataFrame(rows)

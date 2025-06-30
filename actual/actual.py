@@ -91,7 +91,22 @@ if __name__ == '__main__':
     else:
         next_draw_term = 1
     # 新增一列
-    new_row = {"drawTerm": next_draw_term,"bigShowOrder":[], "balls": balls}
+    # 新增 bigSmallSort 欄位
+    small_count = sum(1 for b in balls if 1 <= int(b) <= 40)
+    big_count = sum(1 for b in balls if 41 <= int(b) <= 80)
+    total = len(balls)
+    smallPercent = small_count / total if total > 0 else 0
+    bigPercent = big_count / total if total > 0 else 0
+    if total > 0:
+        if bigPercent >= 0.65:
+            bigSmallSort = "大"
+        elif smallPercent >= 0.65:
+            bigSmallSort = "小"
+        else:
+            bigSmallSort = "合"
+    else:
+        bigSmallSort = ""
+    new_row = {"drawTerm": next_draw_term, "bigShowOrder": [], "balls": balls, "bigSmallSort": bigSmallSort, "smallPercent": smallPercent, "bigPercent": bigPercent}
     new_df = pd.DataFrame([new_row])
 
     # 新增：DeferAlgorithm 實體化並處理
